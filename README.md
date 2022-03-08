@@ -1,3 +1,0 @@
-# Coding Garden
-
-## RogueLike Game
