@@ -1,3 +1,0 @@
-/home/ruska/aksur/karabalin.ruslan-game/cmake-build-debug/CMakeFiles/blt_hello_world.dir
-/home/ruska/aksur/karabalin.ruslan-game/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ruska/aksur/karabalin.ruslan-game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
