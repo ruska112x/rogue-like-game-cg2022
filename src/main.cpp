@@ -93,7 +93,7 @@ class Player {
 
 class Obstacle {
    private:
-    char symbol = '!';
+    char symbol_ = '!';
 
    public:
     float x_;
@@ -101,7 +101,7 @@ class Obstacle {
 
     Obstacle(float x, float y) : x_(x), y_(y) {}
 
-    void Update() { terminal_put(to_pos(x_), y_, symbol); }
+    void Update() { terminal_put(to_pos(x_), y_, symbol_); }
 };
 
 class ObstaclesManager {
