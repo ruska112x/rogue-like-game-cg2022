@@ -1,3 +1,4 @@
+# Build folder
 cmake-build-debug/
 
 # Prerequisites
@@ -32,3 +33,4 @@ cmake-build-debug/
 *.exe
 *.out
 *.app
+
