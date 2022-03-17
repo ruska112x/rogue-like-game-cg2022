@@ -1,14 +1,13 @@
 #include <BearLibTerminal.h>
 
 #include "Controls.h"
-#include "Obstacle.h"
 #include "Player.h"
 #include "Wall.h"
 
 int main() {
     terminal_open();
     terminal_refresh();
-    Wall wall('#', 80, 25);
+    Wall wall('#', 80, 20);
     Controls controls;
     Player player(controls);
 

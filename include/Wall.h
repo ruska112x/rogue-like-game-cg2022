@@ -22,7 +22,7 @@ class Wall {
         for (i = 0; i < width_; i++) {
             terminal_put(i, height_ - 1, symbol_);
         }
-        for (j = 0; j < width_; j++) {
+        for (j = 0; j < height_; j++) {
             terminal_put(0, j, symbol_);
         }
     }

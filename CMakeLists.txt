@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.10)
-project(blt_hello_world)
+cmake_minimum_required(VERSION 3.21)
+project(roguelg)
 
 set(CMAKE_CXX_STANDARD 14)
 
