@@ -6,8 +6,8 @@
 class Player {
    private:
     char symbol_ = '@';
-    int current_x_ = 2;
-    int current_y_ = 2;
+    int current_x_ = 20;
+    int current_y_ = 12;
     int speed_ = 1;
 
     const Controls &controls_;
