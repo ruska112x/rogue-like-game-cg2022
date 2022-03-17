@@ -1,13 +1,25 @@
 #include <BearLibTerminal.h>
 
+#include "Controls.h"
+#include "Obstacle.h"
+#include "Player.h"
+#include "Wall.h"
+
 int main() {
-  terminal_open();
+    terminal_open();
+    terminal_refresh();
+    Wall wall('#', 80, 25);
+    Controls controls;
+    Player player(controls);
 
-  terminal_printf(1, 10, "Hello, world!");
-  terminal_refresh();
+    while (!controls.IsExit()) {
+        terminal_clear();
 
-  while (terminal_read() != TK_CLOSE);
+        controls.Update();
+        wall.Update();
+        player.Update();
 
-  terminal_close();
+        terminal_refresh();
+    }
+    terminal_close();
 }
-
