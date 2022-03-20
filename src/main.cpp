@@ -1,24 +1,24 @@
 #include <BearLibTerminal.h>
 
-#include "Controls.h"
-#include "Player.h"
-#include "Wall.h"
+#include "../include/Coin.h"
+#include "../include/Controls.h"
+#include "../include/Player.h"
 
 int main() {
-    terminal_open();
+  terminal_open();
+  terminal_refresh();
+  Controls controls;
+  Player player(controls, '@', 4, 4);
+  Coin coin(0, 0);
+
+  while (!controls.IsExit()) {
+    terminal_clear();
+
+    controls.Update();
+    player.Update();
+    coin.Update();
+
     terminal_refresh();
-    Wall wall('#', 80, 20);
-    Controls controls;
-    Player player(controls);
-
-    while (!controls.IsExit()) {
-        terminal_clear();
-
-        controls.Update();
-        wall.Update();
-        player.Update();
-
-        terminal_refresh();
-    }
-    terminal_close();
+  }
+  terminal_close();
 }

@@ -1,39 +1,36 @@
-#pragma once
+#ifndef INCLUDE_PLAYER_H_
+#define INCLUDE_PLAYER_H_
+
 #include <BearLibTerminal.h>
 
-#include "Controls.h"
+#include "./Controls.h"
 
 class Player {
-   private:
-    char symbol_ = '@';
-    int current_x_ = 20;
-    int current_y_ = 12;
-    int speed_ = 1;
+ private:
+  char symbol_ = '@';
+  int current_x_ = 1;
+  int current_y_ = 1;
+  const int speed_ = 1;
 
-    const Controls &controls_;
+  int step_count_ = 0;
+  const int max_health_ = 100;
+  int current_health_ = 100;
 
-    void Render() { terminal_put(current_x_, current_y_, symbol_); }
+  int current_coins_ = 0;
 
-    void Move() {
-        if (controls_.IsLeft()) {
-            current_x_ -= speed_;
-        }
-        if (controls_.IsUp()) {
-            current_y_ -= speed_;
-        }
-        if (controls_.IsRight()) {
-            current_x_ += speed_;
-        }
-        if (controls_.IsDown()) {
-            current_y_ += speed_;
-        }
-    }
+  const Controls &controls_;
 
-   public:
-    Player(const Controls &controls) : controls_(controls) {}
+  void Move();
 
-    void Update() {
-        Move();
-        Render();
-    }
+  void Render();
+
+ public:
+  Player(const Controls &controls, char symbol, int x, int y);
+
+  int GetX() const;
+  int GetY() const;
+
+  void Update();
 };
+
+#endif  // INCLUDE_PLAYER_H_
