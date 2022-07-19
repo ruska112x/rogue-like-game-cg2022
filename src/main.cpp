@@ -1,25 +1,34 @@
+#include <../include/Coin.h>
 #include <BearLibTerminal.h>
 
-#include "Controls.h"
-#include "Obstacle.h"
-#include "Player.h"
-#include "Wall.h"
+#include "../include/Controls.h"
+#include "../include/EntityManager.h"
 
 int main() {
-    terminal_open();
-    terminal_refresh();
-    Wall wall('#', 80, 25);
-    Controls controls;
-    Player player(controls);
+  terminal_open();
+  terminal_set("window: title='RogueLG', size = 128x32; font: ./assets/fonts/jbm.ttf, size=13");
+  terminal_refresh();
+  Controls controls;
+  Player player(controls, '@', 1, 1);
+  Coin coin;
+  Food food;
+  EntityManager em(&player, &coin, &food);
 
-    while (!controls.IsExit()) {
-        terminal_clear();
+  while (!controls.IsExit()) {
+    terminal_clear();
 
-        controls.Update();
-        wall.Update();
-        player.Update();
+    controls.Update();
+    player.Update();
+    em.Update();
 
-        terminal_refresh();
+    if (player.IsHungry()) {
+      terminal_clear();
+      terminal_printf(59, 15, "GAME OVER!");
+      terminal_refresh();
     }
-    terminal_close();
+
+    terminal_refresh();
+  }
+
+  terminal_close();
 }
