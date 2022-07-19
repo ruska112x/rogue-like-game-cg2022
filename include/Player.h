@@ -13,10 +13,13 @@ class Player {
   const int speed_ = 1;
 
   int step_count_ = 0;
-  const int max_health_ = 100;
+  int current_coins_ = 0;
+
+  const int max_health_ = 128;
   int current_health_ = 100;
 
-  int current_coins_ = 0;
+  int current_food_ = 16;
+  const int max_food_ = 128;
 
   const Controls &controls_;
 
@@ -29,6 +32,11 @@ class Player {
 
   int GetX() const;
   int GetY() const;
+
+  void TakeCoin();
+
+  void TakeFood(int food_sat);
+  bool IsHungry();
 
   void Update();
 };

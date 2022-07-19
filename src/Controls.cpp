@@ -32,12 +32,13 @@ void Controls::Update() {
     while (terminal_has_input()) {
       auto key = terminal_read();
 
+      bool exit_key = key == TK_CLOSE || key == TK_ESCAPE;
       bool left_key = key == TK_A || key == TK_LEFT;
       bool up_key = key == TK_W || key == TK_UP;
       bool right_key = key == TK_D || key == TK_RIGHT;
       bool down_key = key == TK_S || key == TK_DOWN;
 
-      if (key == TK_CLOSE) {
+      if (exit_key) {
         is_exit_ = true;
       }
       if (left_key) {
