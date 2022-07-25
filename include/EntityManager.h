@@ -7,21 +7,27 @@
 #include "./Coin.h"
 #include "./Food.h"
 #include "./Player.h"
+#include "./Controls.h"
+#include "./Wall.h"
 
 class EntityManager {
  private:
   Player &player_;
+  Controls &controls_;
   Coin &coin_;
   Food &food_;
+  Wall &wall_;
 
  public:
   std::vector<Coin> coins_{};
   std::vector<Food> foods_{};
+  std::vector<Wall> walls_{};
 
-  EntityManager(Player *player, Coin *coin, Food *food);
+  EntityManager(Player *player, Controls *controls, Coin *coin, Food *food, Wall *wall);
 
   void CoinUpdate();
   void FoodUpdate();
+  void WallUpdate();
   void Update();
 };
 

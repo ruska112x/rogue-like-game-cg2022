@@ -1,10 +1,16 @@
-#include <./BearLibTerminal.h>
-
 #include "../include/EntityManager.h"
 
-EntityManager::EntityManager(Player *player, Coin *coin, Food *food) : player_(*player), coin_(*coin), food_(*food) {
-    coins_ = {{99, 1}, {3, 1}, {5, 1}, {7, 1}, {9, 1}};
-    foods_ = {{2, 2}, {4, 2}, {6, 2}, {12, 5}, {17, 15}, {23, 4}, {45, 2}};
+#include <./BearLibTerminal.h>
+
+EntityManager::EntityManager(Player *player, Controls *controls, Coin *coin, Food *food, Wall *wall)
+    : player_(*player), controls_(*controls), coin_(*coin), food_(*food), wall_(*wall) {
+  coins_ = {{2, 3}};
+  foods_ = {{2, 2}};
+  walls_ = {{0, 0},
+            {0, 1}, {0, 2}, {0, 3}, {0, 4},
+            {1, 0}, {2, 0}, {3, 0}, {4, 0},
+            {1, 4}, {3, 4},
+            {4, 1}, {4, 2}, {4, 3}, {4, 4}};
 }
 
 void EntityManager::CoinUpdate() {
@@ -31,7 +37,34 @@ void EntityManager::FoodUpdate() {
   }
 }
 
+void EntityManager::WallUpdate() {
+  for (int i = 0; i < walls_.size(); i++) {
+    terminal_put(walls_[i].GetX(), walls_[i].GetY(), walls_[i].GetSymbol());
+    if (controls_.IsLeft()) {
+      if (player_.GetX() - 1 == walls_[i].GetX() && player_.GetY() == walls_[i].GetY()) {
+        controls_.SetLeft(false);
+      }
+    }
+    if (controls_.IsRight()) {
+      if (player_.GetX() + 1 == walls_[i].GetX() && player_.GetY() == walls_[i].GetY()) {
+        controls_.SetRight(false);
+      }
+    }
+    if (controls_.IsUp()) {
+      if (player_.GetY() - 1 == walls_[i].GetY() && player_.GetX() == walls_[i].GetX()) {
+        controls_.SetUp(false);
+      }
+    }
+    if (controls_.IsDown()) {
+      if (player_.GetY() + 1 == walls_[i].GetY() && player_.GetX() == walls_[i].GetX()) {
+        controls_.SetDown(false);
+      }
+    }
+  }
+}
+
 void EntityManager::Update() {
   CoinUpdate();
   FoodUpdate();
+  WallUpdate();
 }

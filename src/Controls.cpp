@@ -20,6 +20,22 @@ bool Controls::IsDown() const {
   return down_;
 }
 
+void Controls::SetLeft(bool v) {
+  left_ = v;
+}
+
+void Controls::SetUp(bool v) {
+  up_ = v;
+}
+
+void Controls::SetRight(bool v) {
+  right_ = v;
+}
+
+void Controls::SetDown(bool v) {
+  down_ = v;
+}
+
 void Controls::Update() {
   if (!is_exit_) {
     left_ = false;

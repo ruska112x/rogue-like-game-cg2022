@@ -23,6 +23,11 @@ class Controls {
 
   bool IsDown() const;
 
+  void SetLeft(bool v);
+  void SetUp(bool v);
+  void SetRight(bool v);
+  void SetDown(bool v);
+
   void Update();
 };
 

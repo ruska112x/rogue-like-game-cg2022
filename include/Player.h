@@ -33,6 +33,9 @@ class Player {
   int GetX() const;
   int GetY() const;
 
+  void SetX(int x);
+  void SetY(int y);
+
   void TakeCoin();
 
   void TakeFood(int food_sat);

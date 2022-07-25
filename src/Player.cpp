@@ -11,6 +11,14 @@ int Player::GetY() const {
   return current_y_;
 }
 
+void Player::SetX(int x) {
+  current_x_ = x;
+}
+
+void Player::SetY(int y) {
+  current_y_ = y;
+}
+
 void Player::TakeCoin() {
   current_coins_++;
 }
