@@ -22,9 +22,9 @@ class EntityManager {
   LevelManager &lm_;
 
  public:
-  std::vector<Coin> coins_{};
-  std::vector<Food> foods_{};
-  std::vector<Wall> walls_{};
+  std::vector<Coin> *coins_{};
+  std::vector<Food> *foods_{};
+  std::vector<Wall> *walls_{};
 
   EntityManager(Player *player, Controls *controls, Coin *coin, Food *food, Wall *wall, LevelManager *lm);
 

@@ -1,9 +1,9 @@
-#include <../include/Coin.h>
 #include <BearLibTerminal.h>
+#include "./Coin.h"
 
-#include "../include/Controls.h"
-#include "../include/EntityManager.h"
-#include "../include/LevelManager.h"
+#include "./Controls.h"
+#include "./EntityManager.h"
+#include "./LevelManager.h"
 
 int main() {
   terminal_open();
@@ -17,7 +17,8 @@ int main() {
   LevelManager lm(&player, &coin, &food, &wall);
   EntityManager em(&player, &controls, &coin, &food, &wall, &lm);
 
-  lm.GetLevel("../assets/levels/00.txt");
+  lm.GetLevel("/home/ruska/aksur/programming/roguelg_4/assets/levels/00.txt");
+
 
   while (!controls.IsExit()) {
     terminal_clear();
