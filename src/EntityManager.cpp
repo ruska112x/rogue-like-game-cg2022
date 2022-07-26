@@ -2,15 +2,11 @@
 
 #include <./BearLibTerminal.h>
 
-EntityManager::EntityManager(Player *player, Controls *controls, Coin *coin, Food *food, Wall *wall)
-    : player_(*player), controls_(*controls), coin_(*coin), food_(*food), wall_(*wall) {
-  coins_ = {{2, 3}};
-  foods_ = {{2, 2}};
-  walls_ = {{0, 0},
-            {0, 1}, {0, 2}, {0, 3}, {0, 4},
-            {1, 0}, {2, 0}, {3, 0}, {4, 0},
-            {1, 4}, {3, 4},
-            {4, 1}, {4, 2}, {4, 3}, {4, 4}};
+EntityManager::EntityManager(Player *player, Controls *controls, Coin *coin, Food *food, Wall *wall, LevelManager *lm)
+    : player_(*player), controls_(*controls), coin_(*coin), food_(*food), wall_(*wall), lm_(*lm) {
+  coins_ = lm_.coins_;
+  foods_ = lm_.foods_;
+  walls_ = lm_.walls_;
 }
 
 void EntityManager::CoinUpdate() {

@@ -3,6 +3,7 @@
 
 #include "../include/Controls.h"
 #include "../include/EntityManager.h"
+#include "../include/LevelManager.h"
 
 int main() {
   terminal_open();
@@ -13,7 +14,10 @@ int main() {
   Coin coin;
   Food food;
   Wall wall;
-  EntityManager em(&player, &controls, &coin, &food, &wall);
+  LevelManager lm(&player, &coin, &food, &wall);
+  EntityManager em(&player, &controls, &coin, &food, &wall, &lm);
+
+  lm.GetLevel("../assets/levels/00.txt");
 
   while (!controls.IsExit()) {
     terminal_clear();

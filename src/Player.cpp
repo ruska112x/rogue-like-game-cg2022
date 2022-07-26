@@ -11,6 +11,10 @@ int Player::GetY() const {
   return current_y_;
 }
 
+char Player::GetSymbol() {
+  return symbol_;
+}
+
 void Player::SetX(int x) {
   current_x_ = x;
 }
