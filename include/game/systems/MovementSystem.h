@@ -2,7 +2,6 @@
 #define INCLUDE_GAME_SYSTEMS_MOVEMENTSYSTEM_H_
 
 #include "../include/game/Controls.h"
-#include "../include/game/components/CollisionComponent.h"
 #include "../include/game/components/ControlComponent.h"
 #include "../include/game/components/MovementComponent.h"
 #include "../include/game/components/PositionComponent.h"

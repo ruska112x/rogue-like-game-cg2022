@@ -14,9 +14,7 @@ class CollisionSystem : public ISystem {
   Controls controls_;
   CollisionSystem(EntityManager* em, SystemManager* sm, Controls* controls);
 
-  void ObstacleUpdate();
-  void TakableUpdate();
-  void OnUpdate();
+  void OnUpdate() override;
 };
 
 #endif  // INCLUDE_GAME_SYSTEMS_COLLISIONSYSTEM_H_

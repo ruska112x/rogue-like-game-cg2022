@@ -13,7 +13,6 @@ int main() {
   Player->Add<MovementComponent>(Vec2(ZeroVec2));
   Player->Add<ControlComponent>(TK_UP, TK_RIGHT, TK_DOWN, TK_LEFT);
   Player->Add<TextureComponent>('@');
-  Player->Add<CollisionComponent>();
 
   auto Wall0 = engine.GetEntityManager()->CreateEntity();
   Wall0->Add<PositionComponent>(Vec2(2, 2));

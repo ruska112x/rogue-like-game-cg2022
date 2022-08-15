@@ -11,7 +11,7 @@ void RenderSystem::OnUpdate() {
     if (entity.Contains<PositionComponent>()) {
       auto pc = entity.Get<PositionComponent>();
       auto tc = entity.Get<TextureComponent>();
-      terminal_put(pc->pos_.x, pc->pos_.y, tc->symbol_);
+      terminal_put(static_cast<int>(pc->pos_.x), static_cast<int>(pc->pos_.y), tc->symbol_);
     }
   }
 }
