@@ -9,8 +9,7 @@ void MovementSystem::OnUpdate() {
       auto pc = entity.Get<PositionComponent>();
       auto mc = entity.Get<MovementComponent>();
 
-      pc->pos_ += mc->speed_;
-      mc->speed_ = Vec2(ZeroVec2);
+      pc->pos_ += mc->transfer_;
     }
   }
 }

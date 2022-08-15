@@ -6,10 +6,10 @@
 
 class MovementComponent : public IComponent {
  public:
-  Vec2 speed_;
+  Vec2 transfer_;
 
-  explicit MovementComponent(Vec2 speed)
-  : speed_(speed) {}
+  explicit MovementComponent(Vec2 transfer)
+  : transfer_(transfer) {}
 };
 
 #endif  // INCLUDE_GAME_COMPONENTS_MOVEMENTCOMPONENT_H_

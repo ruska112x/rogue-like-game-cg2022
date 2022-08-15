@@ -10,7 +10,6 @@
 
 class MovementSystem : public ISystem {
  public:
-  Controls controls_;
   MovementSystem(EntityManager* em, SystemManager* sm);
 
  protected:
