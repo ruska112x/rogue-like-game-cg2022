@@ -1,37 +1,39 @@
-#include <BearLibTerminal.h>
-#include "./Coin.h"
-
-#include "./Controls.h"
-#include "./EntityManager.h"
-#include "./LevelManager.h"
+#include "../include/game/main.h"
 
 int main() {
   terminal_open();
-  terminal_set("window: title='RogueLG', size = 64x32; font: ./assets/fonts/jbm.ttf, size=16");
+  terminal_set("window: title='RogueLG', size = 63x31;"
+      "font: /home/ruska/aksur/programming/roguelg_esc/assets/fonts/jbm.ttf, size=16");
   terminal_refresh();
   Controls controls;
-  Player player(controls, '@', 1, 1);
-  Coin coin;
-  Food food;
-  Wall wall;
-  LevelManager lm(&player, &coin, &food, &wall);
-  EntityManager em(&player, &controls, &coin, &food, &wall, &lm);
+  const Engine engine{};
 
-  lm.GetLevel("/home/ruska/aksur/programming/roguelg_4/assets/levels/00.txt");
+  auto Player = engine.GetEntityManager()->CreateEntity();
+  Player->Add<PositionComponent>(Vec2(1, 1));
+  Player->Add<MovementComponent>(Vec2(ZeroVec2));
+  Player->Add<ControlComponent>(TK_UP, TK_RIGHT, TK_DOWN, TK_LEFT);
+  Player->Add<TextureComponent>('@');
+  Player->Add<CollisionComponent>();
 
+  auto Wall0 = engine.GetEntityManager()->CreateEntity();
+  Wall0->Add<PositionComponent>(Vec2(2, 2));
+  Wall0->Add<TextureComponent>('#');
+  Wall0->Add<ObstacleTag>();
 
-  while (!controls.IsExit()) {
+//  auto Wall1 = engine.GetEntityManager()->CreateEntity();
+//  Wall1->Add<PositionComponent>(Vec2(4, 2));
+//  Wall1->Add<TextureComponent>('#');
+//  Wall1->Add<ObstacleTag>();
+
+  auto systemManager = engine.GetSystemManager();
+
+  systemManager->AddSystem<RenderSystem>();
+  systemManager->AddSystem<CollisionSystem>(&controls);
+  systemManager->AddSystem<MovementSystem>();
+
+  while (true) {
     terminal_clear();
-
-    controls.Update();
-    em.Update();
-    player.Update();
-
-    if (player.IsHungry()) {
-      terminal_clear();
-      terminal_printf(27, 15, "GAME OVER!");
-      terminal_refresh();
-    }
+    engine.OnUpdate();
 
     terminal_refresh();
   }
