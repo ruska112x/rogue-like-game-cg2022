@@ -2,6 +2,6 @@
 
 int Controls::GetKey() {
   while (terminal_has_input()) {
-    return terminal_read();
+    return  terminal_read();
   }
 }
