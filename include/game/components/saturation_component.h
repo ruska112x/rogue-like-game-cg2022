@@ -1,8 +1,13 @@
-//
-// Created by ruska on 8/17/22.
-//
+#ifndef INCLUDE_GAME_COMPONENTS_SATURATION_COMPONENT_H_
+#define INCLUDE_GAME_COMPONENTS_SATURATION_COMPONENT_H_
 
-#ifndef ROGUELG_SATURATION_COMPONENT_H
-#define ROGUELG_SATURATION_COMPONENT_H
+#include "../include/lib/ecs/component.h"
 
-#endif  // ROGUELG_SATURATION_COMPONENT_H
+class SaturationComponent : public IComponent {
+ public:
+  int saturation_;
+
+  explicit SaturationComponent(int saturation) : saturation_(saturation) {}
+};
+
+#endif  // INCLUDE_GAME_COMPONENTS_SATURATION_COMPONENT_H_

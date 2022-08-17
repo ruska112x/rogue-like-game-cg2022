@@ -16,13 +16,19 @@ int main() {
   player->Add<ColorComponent>(color_from_name("cyan"));
   player->Add<HealthComponent>(1000);
   player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
-  player->Add<CollisionComponent>();
-  player->Add<TransformComponent>();
+  player->Add<TransformComponent>(ZeroVec2);
 
   auto wall = engine.GetEntityManager()->CreateEntity();
   wall->Add<PositionComponent>(Vec2(4, 4));
   wall->Add<TextureComponent>('#');
   wall->Add<ObstacleTag>();
+
+  auto food = engine.GetEntityManager()->CreateEntity();
+  food->Add<PositionComponent>(Vec2(7, 7));
+  food->Add<TextureComponent>('%');
+  food->Add<ColorComponent>(color_from_name("pink"));
+  food->Add<SaturationComponent>(5);
+  food->Add<TakeableTag>();
 
   auto systemManager = engine.GetSystemManager();
 

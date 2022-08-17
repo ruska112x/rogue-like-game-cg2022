@@ -4,11 +4,9 @@ CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const s
 
 void CollisionSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {
-    if (entity.Contains<ControlComponent>() && entity.Contains<CollisionComponent>() &&
-        entity.Contains<TransformComponent>()) {
+    if (entity.Contains<ControlComponent>() && entity.Contains<TransformComponent>()) {
       auto econtrol = entity.Get<ControlComponent>();
       auto eposition = entity.Get<PositionComponent>();
-      auto ecollision = entity.Get<CollisionComponent>();
       auto etransform = entity.Get<TransformComponent>();
       if (econtrol->left_pressed_) {
         etransform->transform_vec2_ = LeftVec2;
@@ -27,6 +25,16 @@ void CollisionSystem::OnUpdate() {
           auto opc = obstacle.Get<PositionComponent>();
           if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
             etransform->transform_vec2_ = ZeroVec2;
+          }
+        }
+        if (obstacle.Contains<TakeableTag>() && obstacle.Contains<SaturationComponent>()) {
+          auto opc = obstacle.Get<PositionComponent>();
+          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+            auto ehc = entity.Get<HealthComponent>();
+            auto osc = obstacle.Get<SaturationComponent>();
+            ehc->health_ += osc->saturation_;
+            GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
+            printf("%d", ehc->health_);
           }
         }
       }

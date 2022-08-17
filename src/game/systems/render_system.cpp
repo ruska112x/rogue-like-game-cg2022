@@ -1,7 +1,6 @@
 #include "../include/game/systems/render_system.h"
 
-RenderSystem::RenderSystem(EntityManager* const em, SystemManager* const sm)
-    : ISystem(em, sm) {}
+RenderSystem::RenderSystem(EntityManager* const em, SystemManager* const sm) : ISystem(em, sm) {}
 
 void RenderSystem::OnUpdate() {
   for (auto& entity : GetEntityManager()) {

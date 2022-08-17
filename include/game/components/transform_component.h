@@ -7,6 +7,8 @@
 class TransformComponent : public IComponent {
  public:
   Vec2 transform_vec2_ = ZeroVec2;
+
+  explicit TransformComponent(Vec2 transform_vec2) : transform_vec2_(transform_vec2) {}
 };
 
 #endif  // INCLUDE_GAME_COMPONENTS_TRANSFORM_COMPONENT_H_

@@ -2,6 +2,7 @@
 #define INCLUDE_GAME_COMPONENTS_COLOR_COMPONENT_H_
 
 #include <BearLibTerminal.h>
+
 #include "../include/lib/ecs/component.h"
 
 class ColorComponent : public IComponent {

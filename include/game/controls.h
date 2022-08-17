@@ -2,6 +2,7 @@
 #define INCLUDE_GAME_CONTROLS_H_
 
 #include <BearLibTerminal.h>
+
 #include <map>
 #include <vector>
 

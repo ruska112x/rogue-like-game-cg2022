@@ -8,7 +8,9 @@ void TransformSystem::OnUpdate() {
       auto epc = entity.Get<PositionComponent>();
       auto etc = entity.Get<TransformComponent>();
       epc->position_ += etc->transform_vec2_;
-      etc->transform_vec2_ = ZeroVec2;
+      if (entity.Contains<ControlComponent>()) {
+        etc->transform_vec2_ = ZeroVec2;
+      }
     }
   }
 }

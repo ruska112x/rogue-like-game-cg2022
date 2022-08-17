@@ -3,6 +3,7 @@
 
 // ecs
 #include <BearLibTerminal.h>
+
 #include "../include/lib/ecs/component.h"
 #include "../include/lib/ecs/engine.h"
 #include "../include/lib/ecs/entity.h"
@@ -18,7 +19,6 @@
 // game
 #include "../include/game/controls.h"
 // components
-#include "../include/game/components/collision_component.h"
 #include "../include/game/components/color_component.h"
 #include "../include/game/components/control_component.h"
 #include "../include/game/components/health_component.h"
