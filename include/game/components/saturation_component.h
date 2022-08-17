@@ -1,0 +1,8 @@
+//
+// Created by ruska on 8/17/22.
+//
+
+#ifndef ROGUELG_SATURATION_COMPONENT_H
+#define ROGUELG_SATURATION_COMPONENT_H
+
+#endif  // ROGUELG_SATURATION_COMPONENT_H
