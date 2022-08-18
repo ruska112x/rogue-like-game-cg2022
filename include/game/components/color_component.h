@@ -10,6 +10,7 @@ class ColorComponent : public IComponent {
   color_t color_ = color_from_name("white");
 
   explicit ColorComponent(color_t color) : color_(color) {}
+  explicit ColorComponent() {}
 };
 
 #endif  // INCLUDE_GAME_COMPONENTS_COLOR_COMPONENT_H_

@@ -9,8 +9,8 @@
 #include "../include/game/controls.h"
 class ControlSystem : public ISystem {
  public:
-  Controls* controls_;
-  ControlSystem(EntityManager* em, SystemManager* sm, Controls* controls);
+  const Controls& controls_;
+  ControlSystem(EntityManager* em, SystemManager* sm, const Controls& controls);
 
  protected:
   void OnUpdate() override;

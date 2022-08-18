@@ -1,21 +1,12 @@
-#ifndef INCLUDE_GAME_MAIN_H_
-#define INCLUDE_GAME_MAIN_H_
+#ifndef INCLUDE_GAME_SCENES_GAME_SCENE_H_
+#define INCLUDE_GAME_SCENES_GAME_SCENE_H_
 
-// ecs
 #include <BearLibTerminal.h>
 
-#include "../include/lib/ecs/component.h"
 #include "../include/lib/ecs/engine.h"
-#include "../include/lib/ecs/entity.h"
-#include "../include/lib/ecs/entity_manager.h"
-#include "../include/lib/ecs/system.h"
-#include "../include/lib/ecs/system_manager.h"
+#include "../include/lib/scenes/i_scene.h"
 // math
 #include "../include/lib/math/vec2.h"
-// scenes
-#include "../include/lib/scenes/context.h"
-#include "../include/lib/scenes/i_scene.h"
-#include "../include/lib/scenes/scene_manager.h"
 // game
 #include "../include/game/controls.h"
 // components
@@ -33,9 +24,17 @@
 #include "../include/game/systems/control_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"
-// scenes
-#include "../include/game/scenes/game_over_scene.h"
-#include "../include/game/scenes/game_scene.h"
-#include "../include/game/scenes/title_scene.h"
 
-#endif  // INCLUDE_GAME_MAIN_H_
+class GameScene : public IScene {
+  const Engine engine{};
+  const Controls& controls_;
+
+ public:
+  GameScene(Context* const ctx, const Controls& controls);
+
+  void OnCreate() override;
+  void OnRender() override;
+  void OnExit() override;
+};
+
+#endif  // INCLUDE_GAME_SCENES_GAME_SCENE_H_

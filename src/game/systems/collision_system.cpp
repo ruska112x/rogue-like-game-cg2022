@@ -34,7 +34,6 @@ void CollisionSystem::OnUpdate() {
             auto osc = obstacle.Get<SaturationComponent>();
             ehc->health_ += osc->saturation_;
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
-            printf("%d", ehc->health_);
           }
         }
       }
