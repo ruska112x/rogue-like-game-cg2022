@@ -24,13 +24,17 @@
 #include "../include/game/systems/control_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"
+#include "../include/game/systems/ui_system.h"
+
+// level manager
+#include "../include/game/level_manager.h"
 
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
 
  public:
-  GameScene(Context* const ctx, const Controls& controls);
+  GameScene(Context* ctx, const Controls& controls);
 
   void OnCreate() override;
   void OnRender() override;
