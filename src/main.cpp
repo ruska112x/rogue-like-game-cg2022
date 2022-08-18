@@ -4,7 +4,7 @@ int main() {
   terminal_open();
   terminal_set(
       "window: title='RogueLG', cellsize = 16x16, size = 63x43;"
-      "font: /home/ruska/aksur/programming/roguelg/assets/fonts/jbm.ttf, size=15q");
+      "font: /home/ruska/aksur/programming/roguelg/assets/fonts/jbm.ttf, size=15");
   terminal_refresh();
 
   Controls controls;
