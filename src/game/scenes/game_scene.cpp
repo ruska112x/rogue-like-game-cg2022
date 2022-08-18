@@ -11,6 +11,7 @@ void GameScene::OnCreate() {
   player->Add<TextureComponent>('@');
   player->Add<ColorComponent>(color_from_name("cyan"));
   player->Add<HealthComponent>(1000);
+  player->Add<StepComponent>();
   player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
   player->Add<TransformComponent>(ZeroVec2);
 

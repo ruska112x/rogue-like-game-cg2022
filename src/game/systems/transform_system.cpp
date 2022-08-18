@@ -7,7 +7,9 @@ void TransformSystem::OnUpdate() {
     if (entity.Contains<PositionComponent>() && entity.Contains<TransformComponent>()) {
       auto epc = entity.Get<PositionComponent>();
       auto etc = entity.Get<TransformComponent>();
+      auto esc = entity.Get<StepComponent>();
       epc->position_ += etc->transform_vec2_;
+      esc->step_count_ += static_cast<int>(etc->transform_vec2_.Magnitude());
       if (entity.Contains<ControlComponent>()) {
         etc->transform_vec2_ = ZeroVec2;
       }

@@ -7,7 +7,9 @@ void UISystem::OnUpdate() {
   auto player = em_.Get(player_id_);
   auto phc = player->Get<HealthComponent>();
   auto ppc = player->Get<PositionComponent>();
+  auto psc = player->Get<StepComponent>();
   terminal_printf(1, 37, "Health: %d", phc->health_);
   terminal_printf(1, 38, "x: %d", static_cast<int>(ppc->position_.x));
   terminal_printf(1, 39, "y: %d", static_cast<int>(ppc->position_.y));
+  terminal_printf(1, 40, "Steps: %d", psc->step_count_);
 }

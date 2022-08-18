@@ -7,6 +7,7 @@
 // game
 #include "../include/game/components/control_component.h"
 #include "../include/game/components/position_component.h"
+#include "../include/game/components/step_component.h"
 #include "../include/game/components/transform_component.h"
 
 class TransformSystem : public ISystem {
