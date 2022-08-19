@@ -14,6 +14,7 @@ int main() {
   sm.Put("title", new TitleScene(&ctx, controls));
   sm.Put("game", new GameScene(&ctx, controls));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
+  sm.Put("victory", new VictoryScene(&ctx, controls));
 
   ctx.scene_ = "title";
 

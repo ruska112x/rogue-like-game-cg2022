@@ -11,7 +11,7 @@ void GameScene::OnCreate() {
   player->Add<TextureComponent>('@');
   player->Add<ColorComponent>(color_from_name("cyan"));
   player->Add<HealthComponent>(1000);
-  player->Add<StepComponent>();
+  player->Add<StepComponent>(128);
   player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
   player->Add<TransformComponent>(ZeroVec2);
 
@@ -41,14 +41,12 @@ void GameScene::OnCreate() {
     systemManager->AddSystem<CollisionSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<UISystem>(player_id);
+    systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
   }
 }
 
 void GameScene::OnRender() {
   engine.OnUpdate();
-  if (controls_.IsPressed(TK_X)) {
-    ctx_->scene_ = "game_over";
-  }
 }
 
 void GameScene::OnExit() {

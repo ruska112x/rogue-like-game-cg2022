@@ -12,4 +12,5 @@ void UISystem::OnUpdate() {
   terminal_printf(1, 38, "x: %d", static_cast<int>(ppc->position_.x));
   terminal_printf(1, 39, "y: %d", static_cast<int>(ppc->position_.y));
   terminal_printf(1, 40, "Steps: %d", psc->step_count_);
+  terminal_printf(1, 41, "Max Steps: %d", psc->max_steps_on_level_);
 }

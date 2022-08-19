@@ -31,11 +31,13 @@
 // systems
 #include "../include/game/systems/collision_system.h"
 #include "../include/game/systems/control_system.h"
+#include "../include/game/systems/game_over_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"
 // scenes
 #include "../include/game/scenes/game_over_scene.h"
 #include "../include/game/scenes/game_scene.h"
 #include "../include/game/scenes/title_scene.h"
+#include "../include/game/scenes/victory_scene.h"
 
 #endif  // INCLUDE_GAME_MAIN_H_

@@ -22,6 +22,7 @@
 // systems
 #include "../include/game/systems/collision_system.h"
 #include "../include/game/systems/control_system.h"
+#include "../include/game/systems/game_over_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"
 #include "../include/game/systems/ui_system.h"
