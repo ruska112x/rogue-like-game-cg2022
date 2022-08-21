@@ -11,31 +11,31 @@ void CollisionSystem::OnUpdate() {
   SceneChanger sceneChanger(&ctx_);
   for (auto& entity : GetEntityManager()) {
     if (entity.Contains<ControlComponent>() && entity.Contains<TransformComponent>()) {
-      auto econtrol = entity.Get<ControlComponent>();
-      auto eposition = entity.Get<PositionComponent>();
-      auto etransform = entity.Get<TransformComponent>();
-      if (econtrol->left_pressed_) {
-        etransform->transform_vec2_ = LeftVec2;
+      auto ecc = entity.Get<ControlComponent>();
+      auto epc = entity.Get<PositionComponent>();
+      auto etc = entity.Get<TransformComponent>();
+      if (ecc->left_pressed_) {
+        etc->transform_vec2_ = LeftVec2;
       }
-      if (econtrol->up_pressed_) {
-        etransform->transform_vec2_ = UpVec2;
+      if (ecc->up_pressed_) {
+        etc->transform_vec2_ = UpVec2;
       }
-      if (econtrol->right_pressed_) {
-        etransform->transform_vec2_ = RightVec2;
+      if (ecc->right_pressed_) {
+        etc->transform_vec2_ = RightVec2;
       }
-      if (econtrol->down_pressed_) {
-        etransform->transform_vec2_ = DownVec2;
+      if (ecc->down_pressed_) {
+        etc->transform_vec2_ = DownVec2;
       }
       for (auto& obstacle : GetEntityManager()) {
         if (obstacle.Contains<ObstacleTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
-          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
-            etransform->transform_vec2_ = ZeroVec2;
+          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
+            etc->transform_vec2_ = ZeroVec2;
           }
         }
         if (obstacle.Contains<TakeableTag>() && obstacle.Contains<SaturationComponent>()) {
           auto opc = obstacle.Get<PositionComponent>();
-          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
             auto ehc = entity.Get<HealthComponent>();
             auto osc = obstacle.Get<SaturationComponent>();
             ehc->health_ += osc->saturation_;
@@ -44,21 +44,21 @@ void CollisionSystem::OnUpdate() {
         }
         if (obstacle.Contains<NextDoorTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
-          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
             sceneChanger.changeLevel(next_level_);
           }
         }
         if (obstacle.Contains<PrevDoorTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
-          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
             sceneChanger.changeLevel(prev_level_);
           }
         }
       }
-      econtrol->left_pressed_ = false;
-      econtrol->up_pressed_ = false;
-      econtrol->right_pressed_ = false;
-      econtrol->down_pressed_ = false;
+      ecc->left_pressed_ = false;
+      ecc->up_pressed_ = false;
+      ecc->right_pressed_ = false;
+      ecc->down_pressed_ = false;
     }
   }
 }

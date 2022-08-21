@@ -1,11 +1,10 @@
 #include "../include/game/scenes/game_scene.h"
 
 #include <string>
-#include <vector>
 
-GameScene::GameScene(Context *const ctx, const Controls &controls, const std::string level_name,
-                     const std::string prev_level, const std::string next_level)
-    : IScene(ctx), controls_(controls), level_file_(level_name), prev_level_(prev_level), next_level_(next_level) {}
+GameScene::GameScene(Context* const ctx, const Controls& controls, const std::string& level_file,
+                     const std::string& prev_level, const std::string& next_level)
+    : IScene(ctx), controls_(controls), level_file_(level_file), prev_level_(prev_level), next_level_(next_level) {}
 
 void GameScene::OnCreate() {
   LevelManager levelManager;
@@ -50,7 +49,6 @@ void GameScene::OnCreate() {
     food->Add<TakeableTag>();
   }
 
-  {
     auto systemManager = engine.GetSystemManager();
 
     systemManager->AddSystem<RenderSystem>();
@@ -59,7 +57,6 @@ void GameScene::OnCreate() {
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<UISystem>(player_id);
     systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
-  }
 }
 
 void GameScene::OnRender() {

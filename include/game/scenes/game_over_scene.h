@@ -13,9 +13,9 @@ class GameOverScene : public IScene {
 
  public:
   GameOverScene(Context* ctx, const Controls& controls);
-  void OnCreate();
-  void OnRender();
-  void OnExit();
+  void OnCreate() override;
+  void OnRender() override;
+  void OnExit() override;
 };
 
 #endif  // INCLUDE_GAME_SCENES_GAME_OVER_SCENE_H_
