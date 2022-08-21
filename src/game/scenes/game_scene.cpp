@@ -1,10 +1,14 @@
 #include "../include/game/scenes/game_scene.h"
 
-GameScene::GameScene(Context *const ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}
+#include <string>
+#include <vector>
+
+GameScene::GameScene(Context *const ctx, const Controls &controls, const std::string &level_name)
+    : IScene(ctx), controls_(controls), level_name_(level_name) {}
 
 void GameScene::OnCreate() {
   LevelManager levelManager;
-  levelManager.GetLevel("/home/ruska/aksur/programming/roguelg/assets/levels/00.txt");
+  levelManager.GetLevel(level_name_);
 
   auto player = engine.GetEntityManager()->CreateEntity();
   player->Add<PositionComponent>(levelManager.player_pos_);
@@ -16,6 +20,12 @@ void GameScene::OnCreate() {
   player->Add<TransformComponent>(ZeroVec2);
 
   auto player_id = player->GetId();
+
+  auto door = engine.GetEntityManager()->CreateEntity();
+  door->Add<PositionComponent>(levelManager.door_pos_);
+  door->Add<TextureComponent>('>');
+  door->Add<ColorComponent>(color_from_name("purple"));
+  door->Add<DoorTag>();
 
   for (auto wall_pos : levelManager.walls_pos_) {
     auto wall = engine.GetEntityManager()->CreateEntity();

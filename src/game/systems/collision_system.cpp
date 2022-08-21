@@ -1,5 +1,8 @@
 #include "../include/game/systems/collision_system.h"
 
+#include <string>
+#include <vector>
+
 CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const sm) : ISystem(em, sm) {}
 
 void CollisionSystem::OnUpdate() {
@@ -34,6 +37,11 @@ void CollisionSystem::OnUpdate() {
             auto osc = obstacle.Get<SaturationComponent>();
             ehc->health_ += osc->saturation_;
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
+          }
+        }
+        if (obstacle.Contains<DoorTag>()) {
+          auto opc = obstacle.Get<PositionComponent>();
+          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
           }
         }
       }

@@ -1,9 +1,10 @@
 #ifndef INCLUDE_GAME_MAIN_H_
 #define INCLUDE_GAME_MAIN_H_
 
-// ecs
 #include <BearLibTerminal.h>
 
+#include <string>
+// ecs
 #include "../include/lib/ecs/component.h"
 #include "../include/lib/ecs/engine.h"
 #include "../include/lib/ecs/entity.h"
@@ -16,7 +17,7 @@
 #include "../include/lib/scenes/context.h"
 #include "../include/lib/scenes/i_scene.h"
 #include "../include/lib/scenes/scene_manager.h"
-// game
+// controls
 #include "../include/game/controls.h"
 // components
 #include "../include/game/components/color_component.h"
@@ -26,6 +27,7 @@
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags
+#include "../include/game/tags/door_tag.h"
 #include "../include/game/tags/obstacle_tag.h"
 #include "../include/game/tags/takeable_tag.h"
 // systems

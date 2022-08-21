@@ -3,6 +3,9 @@
 
 #include <BearLibTerminal.h>
 
+#include <string>
+#include <vector>
+
 #include "../include/lib/ecs/engine.h"
 #include "../include/lib/scenes/i_scene.h"
 // math
@@ -33,9 +36,10 @@
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
+  const std::string& level_name_;
 
  public:
-  GameScene(Context* ctx, const Controls& controls);
+  GameScene(Context* ctx, const Controls& controls, const std::string& level_name);
 
   void OnCreate() override;
   void OnRender() override;
