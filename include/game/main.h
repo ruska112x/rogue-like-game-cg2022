@@ -27,7 +27,7 @@
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags
-#include "../include/game/tags/door_tag.h"
+#include "../include/game/tags/next_door_tag.h"
 #include "../include/game/tags/obstacle_tag.h"
 #include "../include/game/tags/takeable_tag.h"
 // systems

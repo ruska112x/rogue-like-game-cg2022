@@ -13,16 +13,15 @@ int main() {
   Context ctx{};
   SceneManager sm(ctx);
 
-  std::string level_names_[] = {"/home/ruska/aksur/programming/roguelg/assets/levels/00.txt",
-                                "/home/ruska/aksur/programming/roguelg/assets/levels/01.txt",
-                                "/home/ruska/aksur/programming/roguelg/assets/levels/02.txt",
-                                "/home/ruska/aksur/programming/roguelg/assets/levels/03.txt"};
-
   sm.Put("title", new TitleScene(&ctx, controls));
-  sm.Put("level0", new GameScene(&ctx, controls, level_names_[0]));
-  sm.Put("level1", new GameScene(&ctx, controls, level_names_[1]));
-  sm.Put("level2", new GameScene(&ctx, controls, level_names_[2]));
-  sm.Put("level3", new GameScene(&ctx, controls, level_names_[3]));
+  sm.Put("level0", new GameScene(&ctx, controls, "/home/ruska/aksur/programming/roguelg/assets/levels/00.txt", "title",
+                                 "level1"));
+  sm.Put("level1", new GameScene(&ctx, controls, "/home/ruska/aksur/programming/roguelg/assets/levels/01.txt", "level0",
+                                 "level2"));
+  sm.Put("level2", new GameScene(&ctx, controls, "/home/ruska/aksur/programming/roguelg/assets/levels/02.txt", "level1",
+                                 "level3"));
+  sm.Put("level3", new GameScene(&ctx, controls, "/home/ruska/aksur/programming/roguelg/assets/levels/03.txt", "level2",
+                                 "victory"));
   sm.Put("game_over", new GameOverScene(&ctx, controls));
   sm.Put("victory", new VictoryScene(&ctx, controls));
 

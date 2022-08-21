@@ -13,7 +13,4 @@ void GameOverSystem::OnUpdate() {
   if (psc->step_count_ >= psc->max_steps_on_level_) {
     ctx_.scene_ = "game_over";
   }
-  if (phc->health_ >= 1500) {
-    ctx_.scene_ = "victory";
-  }
 }

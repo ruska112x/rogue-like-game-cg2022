@@ -10,7 +10,8 @@
 class LevelManager {
  public:
   Vec2 player_pos_;
-  Vec2 door_pos_;
+  Vec2 prev_door_pos_;
+  Vec2 next_door_pos_;
   std::vector<Vec2> walls_pos_;
   std::vector<Vec2> food_pos_;
   void GetLevel(std::string name) {
@@ -24,9 +25,13 @@ class LevelManager {
         player_pos_.x = static_cast<float>(i);
         player_pos_.y = static_cast<float>(j);
       }
+      if (symbol == '<') {
+        prev_door_pos_.x = static_cast<float>(i);
+        prev_door_pos_.y = static_cast<float>(j);
+      }
       if (symbol == '>') {
-        door_pos_.x = static_cast<float>(i);
-        door_pos_.y = static_cast<float>(j);
+        next_door_pos_.x = static_cast<float>(i);
+        next_door_pos_.y = static_cast<float>(j);
       }
       if (symbol == '#') {
         walls_pos_.emplace_back(Vec2(i, j));

@@ -2,7 +2,6 @@
 #define INCLUDE_GAME_SYSTEMS_COLLISION_SYSTEM_H_
 
 #include <string>
-#include <vector>
 
 // ecs
 #include "../include/lib/ecs/entity_manager.h"
@@ -14,14 +13,20 @@
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/saturation_component.h"
 #include "../include/game/components/transform_component.h"
-#include "../include/game/tags/door_tag.h"
+#include "../include/game/level_manager.h"
+#include "../include/game/scene_changer.h"
+#include "../include/game/tags/next_door_tag.h"
 #include "../include/game/tags/obstacle_tag.h"
+#include "../include/game/tags/prev_door_tag.h"
 #include "../include/game/tags/takeable_tag.h"
 #include "../include/lib/math/vec2.h"
 
 class CollisionSystem : public ISystem {
  public:
-  CollisionSystem(EntityManager* em, SystemManager* sm);
+  Context& ctx_;
+  std::string prev_level_;
+  std::string next_level_;
+  CollisionSystem(EntityManager* em, SystemManager* sm, Context* ctx, std::string prev_level, std::string next_level);
 
  protected:
   void OnUpdate() override;

@@ -3,8 +3,9 @@
 #include <string>
 #include <vector>
 
-GameScene::GameScene(Context *const ctx, const Controls &controls, const std::string &level_name)
-    : IScene(ctx), controls_(controls), level_name_(level_name) {}
+GameScene::GameScene(Context *const ctx, const Controls &controls, const std::string level_name,
+                     const std::string prev_level, const std::string next_level)
+    : IScene(ctx), controls_(controls), level_name_(level_name), prev_level_(prev_level), next_level_(next_level) {}
 
 void GameScene::OnCreate() {
   LevelManager levelManager;
@@ -21,11 +22,17 @@ void GameScene::OnCreate() {
 
   auto player_id = player->GetId();
 
-  auto door = engine.GetEntityManager()->CreateEntity();
-  door->Add<PositionComponent>(levelManager.door_pos_);
-  door->Add<TextureComponent>('>');
-  door->Add<ColorComponent>(color_from_name("purple"));
-  door->Add<DoorTag>();
+  auto next_door = engine.GetEntityManager()->CreateEntity();
+  next_door->Add<PositionComponent>(levelManager.next_door_pos_);
+  next_door->Add<TextureComponent>('>');
+  next_door->Add<ColorComponent>(color_from_name("purple"));
+  next_door->Add<NextDoorTag>();
+
+  auto prev_door = engine.GetEntityManager()->CreateEntity();
+  prev_door->Add<PositionComponent>(levelManager.prev_door_pos_);
+  prev_door->Add<TextureComponent>('<');
+  prev_door->Add<ColorComponent>(color_from_name("green"));
+  prev_door->Add<PrevDoorTag>();
 
   for (auto wall_pos : levelManager.walls_pos_) {
     auto wall = engine.GetEntityManager()->CreateEntity();
@@ -48,7 +55,7 @@ void GameScene::OnCreate() {
 
     systemManager->AddSystem<RenderSystem>();
     systemManager->AddSystem<ControlSystem>(controls_);
-    systemManager->AddSystem<CollisionSystem>();
+    systemManager->AddSystem<CollisionSystem>(ctx_, prev_level_, next_level_);
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<UISystem>(player_id);
     systemManager->AddSystem<GameOverSystem>(ctx_, player_id);

@@ -21,6 +21,7 @@
 #include "../include/game/components/transform_component.h"
 // tags
 #include "../include/game/tags/obstacle_tag.h"
+#include "../include/game/tags/prev_door_tag.h"
 #include "../include/game/tags/takeable_tag.h"
 // systems
 #include "../include/game/systems/collision_system.h"
@@ -36,10 +37,13 @@
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
-  const std::string& level_name_;
+  const std::string level_name_;
+  const std::string prev_level_;
+  const std::string next_level_;
 
  public:
-  GameScene(Context* ctx, const Controls& controls, const std::string& level_name);
+  GameScene(Context* ctx, const Controls& controls, const std::string level_name, const std::string prev_level,
+            const std::string next_level);
 
   void OnCreate() override;
   void OnRender() override;

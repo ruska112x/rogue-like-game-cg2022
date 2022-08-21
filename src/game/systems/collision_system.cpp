@@ -1,11 +1,14 @@
 #include "../include/game/systems/collision_system.h"
 
 #include <string>
-#include <vector>
+#include <utility>
 
-CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const sm) : ISystem(em, sm) {}
+CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const sm, Context* ctx, std::string prev_level,
+                                 std::string next_level)
+    : ISystem(em, sm), ctx_(*ctx), prev_level_(std::move(prev_level)), next_level_(std::move(next_level)) {}
 
 void CollisionSystem::OnUpdate() {
+  SceneChanger sceneChanger(&ctx_);
   for (auto& entity : GetEntityManager()) {
     if (entity.Contains<ControlComponent>() && entity.Contains<TransformComponent>()) {
       auto econtrol = entity.Get<ControlComponent>();
@@ -39,9 +42,16 @@ void CollisionSystem::OnUpdate() {
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
           }
         }
-        if (obstacle.Contains<DoorTag>()) {
+        if (obstacle.Contains<NextDoorTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
           if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+            sceneChanger.changeLevel(next_level_);
+          }
+        }
+        if (obstacle.Contains<PrevDoorTag>()) {
+          auto opc = obstacle.Get<PositionComponent>();
+          if ((eposition->position_ + etransform->transform_vec2_) == opc->position_) {
+            sceneChanger.changeLevel(prev_level_);
           }
         }
       }
