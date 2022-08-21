@@ -36,13 +36,13 @@
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
-  const std::string& level_file_;
-  const std::string& prev_level_;
-  const std::string& next_level_;
+  std::string level_file_;
+  std::string prev_level_;
+  std::string next_level_;
 
  public:
-  GameScene(Context* ctx, const Controls& controls, const std::string& level_file, const std::string& prev_level,
-            const std::string& next_level);
+  GameScene(Context* ctx, const Controls& controls, std::string level_file, std::string prev_level,
+            std::string next_level);
 
   void OnCreate() override;
   void OnRender() override;
