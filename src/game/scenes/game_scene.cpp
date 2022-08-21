@@ -5,11 +5,11 @@
 
 GameScene::GameScene(Context *const ctx, const Controls &controls, const std::string level_name,
                      const std::string prev_level, const std::string next_level)
-    : IScene(ctx), controls_(controls), level_name_(level_name), prev_level_(prev_level), next_level_(next_level) {}
+    : IScene(ctx), controls_(controls), level_file_(level_name), prev_level_(prev_level), next_level_(next_level) {}
 
 void GameScene::OnCreate() {
   LevelManager levelManager;
-  levelManager.GetLevel(level_name_);
+  levelManager.GetLevel(level_file_);
 
   auto player = engine.GetEntityManager()->CreateEntity();
   player->Add<PositionComponent>(levelManager.player_pos_);

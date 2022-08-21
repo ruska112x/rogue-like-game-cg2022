@@ -37,7 +37,7 @@
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
-  const std::string level_name_;
+  const std::string level_file_;
   const std::string prev_level_;
   const std::string next_level_;
 
