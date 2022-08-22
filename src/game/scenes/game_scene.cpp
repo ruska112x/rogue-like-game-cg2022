@@ -68,7 +68,7 @@ void GameScene::OnCreate() {
     enemy->Add<EnemyTag>();
     enemy->Add<ObstacleTag>();
     enemy->Add<HealthComponent>(100);
-    enemy->Add<DamageComponent>(50);
+    enemy->Add<DamageComponent>(100);
   }
 
   auto systemManager = engine.GetSystemManager();

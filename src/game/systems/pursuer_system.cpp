@@ -37,8 +37,10 @@ void PursuerSystem::OnUpdate() {
           // TODO: fix fight when between player and enemy ONE cell, player dies instantly
           if ((playerPosition->position_ + playerTransform->transform_vec2_) ==
               (enemyPosition->position_ + enemyTransform->transform_vec2_)) {
-            enemyHealth->health_ -= playerDamage->damage_;
-            playerHealth->health_ -= enemyDamage->damage_;
+            if (playerPosition->position_ != enemyPosition->position_) {
+              enemyHealth->health_ -= playerDamage->damage_;
+              playerHealth->health_ -= enemyDamage->damage_;
+            }
             enemyTransform->transform_vec2_ = ZeroVec2;
             playerTransform->transform_vec2_ = ZeroVec2;
             if (enemyHealth->health_ <= 0) {
