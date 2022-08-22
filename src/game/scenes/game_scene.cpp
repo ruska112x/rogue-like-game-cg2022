@@ -13,6 +13,11 @@ GameScene::GameScene(Context* const ctx, const Controls& controls, std::string l
 }
 
 void GameScene::OnCreate() {
+  if (ctx_->restart) {
+    levelManager_.GetLevel(level_file_);
+    ctx_->restart = false;
+  }
+
   auto player = engine.GetEntityManager()->CreateEntity();
   player->Add<PositionComponent>(levelManager_.player_pos_);
   player->Add<TextureComponent>('@');
@@ -21,7 +26,8 @@ void GameScene::OnCreate() {
   player->Add<StepComponent>(128);
   player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
   player->Add<TransformComponent>(ZeroVec2);
-  player->Add<DamageComponent>(50);
+  player->Add<DamageComponent>(100);
+  player->Add<ObstacleTag>();
 
   auto player_id = player->GetId();
 
@@ -62,7 +68,7 @@ void GameScene::OnCreate() {
     enemy->Add<EnemyTag>();
     enemy->Add<ObstacleTag>();
     enemy->Add<HealthComponent>(100);
-    enemy->Add<DamageComponent>(1);
+    enemy->Add<DamageComponent>(50);
   }
 
   auto systemManager = engine.GetSystemManager();
@@ -74,7 +80,7 @@ void GameScene::OnCreate() {
   systemManager->AddSystem<UISystem>(player_id);
   systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
   systemManager->AddSystem<DeathSystem>();
-  systemManager->AddSystem<PursuerSystem>(player_id);
+  systemManager->AddSystem<PursuerSystem>(ctx_, &levelManager_, player_id);
 }
 
 void GameScene::OnRender() {

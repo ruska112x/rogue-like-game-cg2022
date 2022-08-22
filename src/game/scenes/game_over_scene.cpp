@@ -6,9 +6,10 @@ void GameOverScene::OnCreate() {}
 
 void GameOverScene::OnRender() {
   terminal_clear();
-  terminal_print(22, 12, "Game Over\nPress Enter to go to main menu");
+  terminal_print(7, 6, "Game Over\nPress Enter to go to main menu");
   if (controls_.IsPressed(TK_ENTER)) {
     ctx_->scene_ = "level0";
+    ctx_->restart = true;
   }
   terminal_refresh();
 }

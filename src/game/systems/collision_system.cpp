@@ -14,52 +14,42 @@ CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const s
 void CollisionSystem::OnUpdate() {
   SceneChanger sceneChanger(&ctx_);
   for (auto& entity : GetEntityManager()) {
-    if (entity.Contains<PositionComponent>() && entity.Contains<TransformComponent>() && entity.Contains<EnemyTag>()) {
-      auto epc = entity.Get<PositionComponent>();
-      auto etc = entity.Get<TransformComponent>();
-      for (auto& obstacle : GetEntityManager()) {
-        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<TransformComponent>() &&
-            obstacle.Contains<EnemyTag>() && (entity.GetId() != obstacle.GetId())) {
-          auto opc = obstacle.Get<PositionComponent>();
-          auto otc = obstacle.Get<TransformComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == (opc->position_ + otc->transform_vec2_)) {
-            etc->transform_vec2_ = ZeroVec2;
-            //            otc->transform_vec2_ = ZeroVec2;
-          }
-        }
+    if (entity.Contains<PositionComponent>() && entity.Contains<TransformComponent>() &&
+        entity.Contains<ControlComponent>() && entity.Contains<HealthComponent>()) {
+      // player components
+      auto entityPosition = entity.Get<PositionComponent>();
+      auto entityTransform = entity.Get<TransformComponent>();
+      auto entityControl = entity.Get<ControlComponent>();
+      auto entityHealth = entity.Get<HealthComponent>();
+      if (entityControl->left_pressed_) {
+        entityTransform->transform_vec2_ = LeftVec2;
       }
-    }
-    if (entity.Contains<ControlComponent>() && entity.Contains<TransformComponent>()) {
-      auto ecc = entity.Get<ControlComponent>();
-      auto epc = entity.Get<PositionComponent>();
-      auto etc = entity.Get<TransformComponent>();
-      if (ecc->left_pressed_) {
-        etc->transform_vec2_ = LeftVec2;
+      if (entityControl->up_pressed_) {
+        entityTransform->transform_vec2_ = UpVec2;
       }
-      if (ecc->up_pressed_) {
-        etc->transform_vec2_ = UpVec2;
+      if (entityControl->right_pressed_) {
+        entityTransform->transform_vec2_ = RightVec2;
       }
-      if (ecc->right_pressed_) {
-        etc->transform_vec2_ = RightVec2;
-      }
-      if (ecc->down_pressed_) {
-        etc->transform_vec2_ = DownVec2;
+      if (entityControl->down_pressed_) {
+        entityTransform->transform_vec2_ = DownVec2;
       }
       for (auto& obstacle : GetEntityManager()) {
-        if (obstacle.Contains<ObstacleTag>()) {
-          auto opc = obstacle.Get<PositionComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
-            etc->transform_vec2_ = ZeroVec2;
+        // player and walls collision
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<ObstacleTag>()) {
+          auto obstaclePosition = obstacle.Get<PositionComponent>();
+          if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
+            entityTransform->transform_vec2_ = ZeroVec2;
           }
         }
-        if (obstacle.Contains<TakeableTag>() && obstacle.Contains<SaturationComponent>()) {
-          auto opc = obstacle.Get<PositionComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
-            auto ehc = entity.Get<HealthComponent>();
-            auto osc = obstacle.Get<SaturationComponent>();
-            ehc->health_ += osc->saturation_;
+        // player and food collision
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<SaturationComponent>() &&
+            obstacle.Contains<TakeableTag>()) {
+          auto obstaclePosition = obstacle.Get<PositionComponent>();
+          auto obstacleSaturation = obstacle.Get<SaturationComponent>();
+          if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
+            entityHealth->health_ += obstacleSaturation->saturation_;
             for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
-              if (opc->position_ == levelManager_.food_pos_[i]) {
+              if (obstaclePosition->position_ == levelManager_.food_pos_[i]) {
                 levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
                 break;
               }
@@ -67,39 +57,27 @@ void CollisionSystem::OnUpdate() {
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
           }
         }
-        if (obstacle.Contains<EnemyTag>()) {
-          auto opc = obstacle.Get<PositionComponent>();
-          auto otc = obstacle.Get<TransformComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == (opc->position_ + otc->transform_vec2_)) {
-            auto ehc = entity.Get<HealthComponent>();
-            auto edc = entity.Get<DamageComponent>();
-            auto ohc = obstacle.Get<HealthComponent>();
-            auto odc = obstacle.Get<DamageComponent>();
-            ehc->health_ -= odc->damage_;
-            ohc->health_ -= edc->damage_;
-            etc->transform_vec2_ = ZeroVec2;
-            otc->transform_vec2_ = ZeroVec2;
-          }
-        }
-        if (obstacle.Contains<PrevDoorTag>()) {
-          auto opc = obstacle.Get<PositionComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
+        // player and prev_door collision
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<PrevDoorTag>()) {
+          auto obstaclePosition = obstacle.Get<PositionComponent>();
+          if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             sceneChanger.changeLevel(prev_level_);
           }
         }
-        if (obstacle.Contains<NextDoorTag>()) {
-          auto opc = obstacle.Get<PositionComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
+        // player and next_door collision
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<NextDoorTag>()) {
+          auto obstaclePosition = obstacle.Get<PositionComponent>();
+          if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             sceneChanger.changeLevel(next_level_);
-            levelManager_.player_pos_.x = opc->position_.x - 1;
-            levelManager_.player_pos_.y = opc->position_.y;
+            levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
+            levelManager_.player_pos_.y = obstaclePosition->position_.y;
           }
         }
       }
-      ecc->left_pressed_ = false;
-      ecc->up_pressed_ = false;
-      ecc->right_pressed_ = false;
-      ecc->down_pressed_ = false;
+      entityControl->left_pressed_ = false;
+      entityControl->up_pressed_ = false;
+      entityControl->right_pressed_ = false;
+      entityControl->down_pressed_ = false;
     }
   }
 }

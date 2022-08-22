@@ -8,18 +8,24 @@
 #include "../include/lib/scenes/context.h"
 // game
 #include "../include/game/components/control_component.h"
+#include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
+#include "../include/game/components/saturation_component.h"
 #include "../include/game/components/step_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
+#include "../include/game/level_manager.h"
 #include "../include/game/tags/enemy_tag.h"
+#include "../include/game/tags/obstacle_tag.h"
 
 class PursuerSystem : public ISystem {
  public:
+  Context& ctx_;
   EntityManager& em_;
+  LevelManager& levelManager_;
   int player_id_;
-  PursuerSystem(EntityManager* em, SystemManager* sm, int player_id);
+  PursuerSystem(EntityManager* em, SystemManager* sm, Context* ctx, LevelManager* levelManager, int player_id);
 
  protected:
   void OnUpdate() override;

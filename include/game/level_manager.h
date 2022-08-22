@@ -17,6 +17,18 @@ class LevelManager {
   std::vector<Vec2> food_pos_;
 
   void GetLevel(std::string name) {
+    player_pos_ = ZeroVec2;
+    prev_door_pos_ = ZeroVec2;
+    next_door_pos_ = ZeroVec2;
+    while (!enemy_pos_.empty()) {
+      enemy_pos_.pop_back();
+    }
+    while (!walls_pos_.empty()) {
+      walls_pos_.pop_back();
+    }
+    while (!food_pos_.empty()) {
+      food_pos_.pop_back();
+    }
     std::ifstream fin;
     fin.open(name);
     char symbol;

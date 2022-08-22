@@ -16,6 +16,7 @@
 class Context {
  public:
   std::string scene_ = "";
+  bool restart = false;
 };
 
 #endif  // INCLUDE_LIB_SCENES_CONTEXT_H_
