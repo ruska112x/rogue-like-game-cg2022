@@ -23,16 +23,6 @@ void GameScene::OnCreate() {
   player->Add<TransformComponent>(ZeroVec2);
   player->Add<DamageComponent>(50);
 
-  for (auto enemy_pos : levelManager_.enemy_pos_) {
-    auto enemy = engine.GetEntityManager()->CreateEntity();
-    enemy->Add<PositionComponent>(enemy_pos);
-    enemy->Add<TextureComponent>('E');
-    enemy->Add<ColorComponent>(color_from_name("red"));
-    enemy->Add<EnemyTag>();
-    enemy->Add<HealthComponent>(100);
-    enemy->Add<DamageComponent>(1);
-  }
-
   auto player_id = player->GetId();
 
   auto next_door = engine.GetEntityManager()->CreateEntity();
@@ -63,6 +53,18 @@ void GameScene::OnCreate() {
     food->Add<TakeableTag>();
   }
 
+  for (auto enemy_pos : levelManager_.enemy_pos_) {
+    auto enemy = engine.GetEntityManager()->CreateEntity();
+    enemy->Add<PositionComponent>(enemy_pos);
+    enemy->Add<TransformComponent>(ZeroVec2);
+    enemy->Add<TextureComponent>('E');
+    enemy->Add<ColorComponent>(color_from_name("red"));
+    enemy->Add<EnemyTag>();
+    enemy->Add<ObstacleTag>();
+    enemy->Add<HealthComponent>(100);
+    enemy->Add<DamageComponent>(1);
+  }
+
   auto systemManager = engine.GetSystemManager();
 
   systemManager->AddSystem<RenderSystem>();
@@ -72,6 +74,7 @@ void GameScene::OnCreate() {
   systemManager->AddSystem<UISystem>(player_id);
   systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
   systemManager->AddSystem<DeathSystem>();
+  systemManager->AddSystem<PursuerSystem>(player_id);
 }
 
 void GameScene::OnRender() {

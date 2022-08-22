@@ -6,6 +6,7 @@
 #include "../include/lib/ecs/system_manager.h"
 // game
 #include "../include/game/components/control_component.h"
+#include "../include/game/components/transform_component.h"
 #include "../include/game/controls.h"
 class ControlSystem : public ISystem {
  public:

@@ -7,6 +7,7 @@
 class TransformComponent : public IComponent {
  public:
   Vec2 transform_vec2_ = ZeroVec2;
+  bool is_transform_ = false;
 
   explicit TransformComponent(Vec2 transform_vec2) : transform_vec2_(transform_vec2) {}
 };

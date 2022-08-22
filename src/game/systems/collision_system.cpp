@@ -14,6 +14,21 @@ CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const s
 void CollisionSystem::OnUpdate() {
   SceneChanger sceneChanger(&ctx_);
   for (auto& entity : GetEntityManager()) {
+    if (entity.Contains<PositionComponent>() && entity.Contains<TransformComponent>() && entity.Contains<EnemyTag>()) {
+      auto epc = entity.Get<PositionComponent>();
+      auto etc = entity.Get<TransformComponent>();
+      for (auto& obstacle : GetEntityManager()) {
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<TransformComponent>() &&
+            obstacle.Contains<EnemyTag>() && (entity.GetId() != obstacle.GetId())) {
+          auto opc = obstacle.Get<PositionComponent>();
+          auto otc = obstacle.Get<TransformComponent>();
+          if ((epc->position_ + etc->transform_vec2_) == (opc->position_ + otc->transform_vec2_)) {
+            etc->transform_vec2_ = ZeroVec2;
+            //            otc->transform_vec2_ = ZeroVec2;
+          }
+        }
+      }
+    }
     if (entity.Contains<ControlComponent>() && entity.Contains<TransformComponent>()) {
       auto ecc = entity.Get<ControlComponent>();
       auto epc = entity.Get<PositionComponent>();
@@ -43,12 +58,19 @@ void CollisionSystem::OnUpdate() {
             auto ehc = entity.Get<HealthComponent>();
             auto osc = obstacle.Get<SaturationComponent>();
             ehc->health_ += osc->saturation_;
+            for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
+              if (opc->position_ == levelManager_.food_pos_[i]) {
+                levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
+                break;
+              }
+            }
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
           }
         }
         if (obstacle.Contains<EnemyTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
-          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
+          auto otc = obstacle.Get<TransformComponent>();
+          if ((epc->position_ + etc->transform_vec2_) == (opc->position_ + otc->transform_vec2_)) {
             auto ehc = entity.Get<HealthComponent>();
             auto edc = entity.Get<DamageComponent>();
             auto ohc = obstacle.Get<HealthComponent>();
@@ -56,6 +78,7 @@ void CollisionSystem::OnUpdate() {
             ehc->health_ -= odc->damage_;
             ohc->health_ -= edc->damage_;
             etc->transform_vec2_ = ZeroVec2;
+            otc->transform_vec2_ = ZeroVec2;
           }
         }
         if (obstacle.Contains<PrevDoorTag>()) {
