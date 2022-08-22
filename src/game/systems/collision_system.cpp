@@ -3,9 +3,13 @@
 #include <string>
 #include <utility>
 
-CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const sm, Context* ctx, std::string prev_level,
-                                 std::string next_level)
-    : ISystem(em, sm), ctx_(*ctx), prev_level_(std::move(prev_level)), next_level_(std::move(next_level)) {}
+CollisionSystem::CollisionSystem(EntityManager* const em, SystemManager* const sm, Context* ctx,
+                                 LevelManager* levelManager, std::string prev_level, std::string next_level)
+    : ISystem(em, sm),
+      ctx_(*ctx),
+      levelManager_(*levelManager),
+      prev_level_(std::move(prev_level)),
+      next_level_(std::move(next_level)) {}
 
 void CollisionSystem::OnUpdate() {
   SceneChanger sceneChanger(&ctx_);
@@ -42,16 +46,30 @@ void CollisionSystem::OnUpdate() {
             GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
           }
         }
-        if (obstacle.Contains<NextDoorTag>()) {
+        if (obstacle.Contains<EnemyTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
           if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
-            sceneChanger.changeLevel(next_level_);
+            auto ehc = entity.Get<HealthComponent>();
+            auto edc = entity.Get<DamageComponent>();
+            auto ohc = obstacle.Get<HealthComponent>();
+            auto odc = obstacle.Get<DamageComponent>();
+            ehc->health_ -= odc->damage_;
+            ohc->health_ -= edc->damage_;
+            etc->transform_vec2_ = ZeroVec2;
           }
         }
         if (obstacle.Contains<PrevDoorTag>()) {
           auto opc = obstacle.Get<PositionComponent>();
           if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
             sceneChanger.changeLevel(prev_level_);
+          }
+        }
+        if (obstacle.Contains<NextDoorTag>()) {
+          auto opc = obstacle.Get<PositionComponent>();
+          if ((epc->position_ + etc->transform_vec2_) == opc->position_) {
+            sceneChanger.changeLevel(next_level_);
+            levelManager_.player_pos_.x = opc->position_.x - 1;
+            levelManager_.player_pos_.y = opc->position_.y;
           }
         }
       }

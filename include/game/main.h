@@ -22,6 +22,7 @@
 // components
 #include "../include/game/components/color_component.h"
 #include "../include/game/components/control_component.h"
+#include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/texture_component.h"
@@ -33,6 +34,7 @@
 // systems
 #include "../include/game/systems/collision_system.h"
 #include "../include/game/systems/control_system.h"
+#include "../include/game/systems/death_system.h"
 #include "../include/game/systems/game_over_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"

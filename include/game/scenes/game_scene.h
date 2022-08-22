@@ -14,17 +14,20 @@
 // components
 #include "../include/game/components/color_component.h"
 #include "../include/game/components/control_component.h"
+#include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags
+#include "../include/game/tags/enemy_tag.h"
 #include "../include/game/tags/obstacle_tag.h"
 #include "../include/game/tags/prev_door_tag.h"
 #include "../include/game/tags/takeable_tag.h"
 // systems
 #include "../include/game/systems/collision_system.h"
 #include "../include/game/systems/control_system.h"
+#include "../include/game/systems/death_system.h"
 #include "../include/game/systems/game_over_system.h"
 #include "../include/game/systems/render_system.h"
 #include "../include/game/systems/transform_system.h"
@@ -36,6 +39,7 @@
 class GameScene : public IScene {
   const Engine engine{};
   const Controls& controls_;
+  LevelManager levelManager_;
   std::string level_file_;
   std::string prev_level_;
   std::string next_level_;
