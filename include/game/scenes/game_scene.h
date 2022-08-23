@@ -34,7 +34,7 @@
 #include "../include/game/systems/transform_system.h"
 #include "../include/game/systems/ui_system.h"
 
-// level manager
+// level managers
 #include "../include/game/level_manager.h"
 
 class GameScene : public IScene {

@@ -1,27 +1,33 @@
-#include "../include/game/scenes/game_scene.h"
+#include "../include/game/scenes/random_scene.h"
 
 #include <string>
+#include <utility>
 
-GameScene::GameScene(Context* const ctx, const Controls& controls, std::string level_file, std::string prev_level,
-                     std::string next_level)
-    : IScene(ctx),
-      controls_(controls),
-      level_file_(std::move(level_file)),
-      prev_level_(std::move(prev_level)),
-      next_level_(std::move(next_level)) {
-  levelManager_.GetLevel(level_file_);
+RandomScene::RandomScene(Context *ctx, const Controls &controls, std::string next_level)
+    : IScene(ctx), controls_(controls), next_level_(std::move(next_level)) {
+  levelManager_.GetRandomLevel();
   ctx_->player_health_ = 1000;
   ctx_->player_steps_ = 0;
   ctx_->player_max_steps_ = 256;
   ctx_->player_damage_ = 100;
 }
 
-void GameScene::OnCreate() {
+void RandomScene::OnCreate() {
   if (ctx_->restart) {
-    levelManager_.GetLevel(level_file_);
-    ctx_->restart = false;
+    levelManager_.GetRandomLevel();
   }
+  auto player = engine.GetEntityManager()->CreateEntity();
+  player->Add<PositionComponent>(levelManager_.player_pos_);
+  player->Add<TextureComponent>('@');
+  player->Add<ColorComponent>(color_from_name("cyan"));
+  player->Add<HealthComponent>(ctx_->player_health_);
+  player->Add<StepComponent>(ctx_->player_max_steps_);
+  player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
+  player->Add<TransformComponent>(ZeroVec2);
+  player->Add<DamageComponent>(ctx_->player_damage_);
+  player->Add<ObstacleTag>();
 
+  auto player_id = player->GetId();
 
   auto next_door = engine.GetEntityManager()->CreateEntity();
   next_door->Add<PositionComponent>(levelManager_.next_door_pos_);
@@ -63,24 +69,11 @@ void GameScene::OnCreate() {
     enemy->Add<DamageComponent>(100);
   }
 
-  auto player = engine.GetEntityManager()->CreateEntity();
-  player->Add<PositionComponent>(levelManager_.player_pos_);
-  player->Add<TextureComponent>('@');
-  player->Add<ColorComponent>(color_from_name("cyan"));
-  player->Add<HealthComponent>(ctx_->player_health_);
-  player->Add<StepComponent>(ctx_->player_max_steps_);
-  player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
-  player->Add<TransformComponent>(ZeroVec2);
-  player->Add<DamageComponent>(ctx_->player_damage_);
-  player->Add<ObstacleTag>();
-
-  auto player_id = player->GetId();
-
   auto systemManager = engine.GetSystemManager();
 
   systemManager->AddSystem<RenderSystem>();
   systemManager->AddSystem<ControlSystem>(controls_);
-  systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, prev_level_, next_level_);
+  systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, "-", next_level_);
   systemManager->AddSystem<TransformSystem>();
   systemManager->AddSystem<UISystem>(player_id);
   systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
@@ -88,14 +81,14 @@ void GameScene::OnCreate() {
   systemManager->AddSystem<PursuerSystem>(ctx_, &levelManager_, player_id);
 }
 
-void GameScene::OnRender() {
+void RandomScene::OnRender() {
   engine.OnUpdate();
   if (controls_.IsPressed(TK_ESCAPE)) {
     ctx_->scene_ = "title";
   }
 }
 
-void GameScene::OnExit() {
+void RandomScene::OnExit() {
   engine.GetEntityManager()->DeleteAll();
   engine.GetSystemManager()->DeleteAll();
 }

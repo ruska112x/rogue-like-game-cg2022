@@ -6,9 +6,10 @@ void VictoryScene::OnCreate() {}
 
 void VictoryScene::OnRender() {
   terminal_clear();
-  terminal_print(22, 12, "You won!!!\nPress Enter to start");
+  terminal_print(7, 6, "You won!!!\nPress ENTER to go to main menu");
   if (controls_.IsPressed(TK_ENTER)) {
-    ctx_->scene_ = "level0";
+    ctx_->scene_ = "title";
+    ctx_->restart = true;
   }
   terminal_refresh();
 }
