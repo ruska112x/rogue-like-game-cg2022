@@ -13,10 +13,19 @@
  * Но рекомендуется придумать механизм, чтобы не пришлось постоянно править класс контектса.
  * Как минимум используйте map<string, iobject*>
  */
+
 class Context {
  public:
   std::string scene_ = "";
   bool restart = false;
+  bool exit = false;
+  bool random = false;
+  bool tile = false;
+
+  int player_health_;
+  int player_steps_;
+  int player_max_steps_;
+  int player_damage_;
 };
 
 #endif  // INCLUDE_LIB_SCENES_CONTEXT_H_

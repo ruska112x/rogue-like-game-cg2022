@@ -7,10 +7,11 @@
 #include "../include/lib/scenes/i_scene.h"
 
 class TitleScene : public IScene {
-  const Controls& controls_;
+  Controls& controls_;
 
  public:
-  TitleScene(Context* ctx, const Controls& controls);
+  int x{}, y{};
+  TitleScene(Context* ctx, Controls* controls);
 
   void OnCreate() override;
   void OnRender() override;

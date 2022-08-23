@@ -35,7 +35,8 @@ void CollisionSystem::OnUpdate() {
       }
       for (auto& obstacle : GetEntityManager()) {
         // player and walls collision
-        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<ObstacleTag>()) {
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<ObstacleTag>() &&
+            (entity.GetId() != obstacle.GetId())) {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             entityTransform->transform_vec2_ = ZeroVec2;
@@ -69,8 +70,10 @@ void CollisionSystem::OnUpdate() {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             sceneChanger.changeLevel(next_level_);
-            levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
-            levelManager_.player_pos_.y = obstaclePosition->position_.y;
+            if (!ctx_.random) {
+              levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
+              levelManager_.player_pos_.y = obstaclePosition->position_.y;
+            }
           }
         }
       }
