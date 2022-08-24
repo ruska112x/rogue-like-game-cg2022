@@ -71,7 +71,7 @@ void RandomScene::OnCreate() {
 
   auto systemManager = engine.GetSystemManager();
 
-  systemManager->AddSystem<RenderSystem>();
+  systemManager->AddSystem<RenderSystem>(ctx_);
   systemManager->AddSystem<ControlSystem>(controls_);
   systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, "-", next_level_);
   systemManager->AddSystem<TransformSystem>();
@@ -85,6 +85,7 @@ void RandomScene::OnRender() {
   engine.OnUpdate();
   if (controls_.IsPressed(TK_ESCAPE)) {
     ctx_->scene_ = "title";
+    ctx_->restart = true;
   }
 }
 

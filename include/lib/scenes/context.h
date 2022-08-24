@@ -20,7 +20,7 @@ class Context {
   bool restart = false;
   bool exit = false;
   bool random = false;
-  bool tile = false;
+  bool sprite = false;
 
   int player_health_;
   int player_steps_;

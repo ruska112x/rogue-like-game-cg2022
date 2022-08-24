@@ -12,7 +12,7 @@ GameScene::GameScene(Context* const ctx, const Controls& controls, std::string l
   levelManager_.GetLevel(level_file_);
   ctx_->player_health_ = 1000;
   ctx_->player_steps_ = 0;
-  ctx_->player_max_steps_ = 256;
+  ctx_->player_max_steps_ = 128;
   ctx_->player_damage_ = 100;
 }
 
@@ -21,7 +21,6 @@ void GameScene::OnCreate() {
     levelManager_.GetLevel(level_file_);
     ctx_->restart = false;
   }
-
 
   auto next_door = engine.GetEntityManager()->CreateEntity();
   next_door->Add<PositionComponent>(levelManager_.next_door_pos_);
@@ -78,7 +77,7 @@ void GameScene::OnCreate() {
 
   auto systemManager = engine.GetSystemManager();
 
-  systemManager->AddSystem<RenderSystem>();
+  systemManager->AddSystem<RenderSystem>(ctx_);
   systemManager->AddSystem<ControlSystem>(controls_);
   systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, prev_level_, next_level_);
   systemManager->AddSystem<TransformSystem>();
@@ -92,6 +91,7 @@ void GameScene::OnRender() {
   engine.OnUpdate();
   if (controls_.IsPressed(TK_ESCAPE)) {
     ctx_->scene_ = "title";
+    ctx_->restart = true;
   }
 }
 
