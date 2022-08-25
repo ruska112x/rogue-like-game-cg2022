@@ -8,9 +8,26 @@ SettingsScene::SettingsScene(Context *ctx, Controls *controls)
       rand_accept('-'),
       prepare_accept('+'),
       ascii_accept('+'),
-      sprite_accept('-') {}
+      sprite_accept('-') {
+  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
+}
 
-void SettingsScene::OnCreate() {}
+void SettingsScene::OnCreate() {
+  if (ctx_->sprite) {
+    ascii_accept = '-';
+    sprite_accept = '+';
+  } else {
+    ascii_accept = '+';
+    sprite_accept = '-';
+  }
+  if (ctx_->random) {
+    rand_accept = '+';
+    prepare_accept = '-';
+  } else {
+    rand_accept = '-';
+    prepare_accept = '+';
+  }
+}
 
 void SettingsScene::OnRender() {
   terminal_clear();
@@ -62,6 +79,9 @@ void SettingsScene::OnRender() {
     if (y == 15) {
       y = 8;
     }
+  }
+  if (controls_.IsPressed(TK_ESCAPE)) {
+    ctx_->scene_ = "title";
   }
   terminal_refresh();
 }

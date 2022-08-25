@@ -5,6 +5,7 @@
 #include "../include/lib/ecs/entity_manager.h"
 #include "../include/lib/ecs/system.h"
 #include "../include/lib/ecs/system_manager.h"
+#include "../include/lib/scenes/context.h"
 // game
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"

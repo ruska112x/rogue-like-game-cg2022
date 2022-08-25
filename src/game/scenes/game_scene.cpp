@@ -10,10 +10,6 @@ GameScene::GameScene(Context* const ctx, const Controls& controls, std::string l
       prev_level_(std::move(prev_level)),
       next_level_(std::move(next_level)) {
   levelManager_.GetLevel(level_file_);
-  ctx_->player_health_ = 1000;
-  ctx_->player_steps_ = 0;
-  ctx_->player_max_steps_ = 128;
-  ctx_->player_damage_ = 100;
 }
 
 void GameScene::OnCreate() {
@@ -21,6 +17,8 @@ void GameScene::OnCreate() {
     levelManager_.GetLevel(level_file_);
     ctx_->restart = false;
   }
+
+  auto systemManager = engine.GetSystemManager();
 
   auto next_door = engine.GetEntityManager()->CreateEntity();
   next_door->Add<PositionComponent>(levelManager_.next_door_pos_);
@@ -58,9 +56,24 @@ void GameScene::OnCreate() {
     enemy->Add<ColorComponent>(color_from_name("red"));
     enemy->Add<EnemyTag>();
     enemy->Add<ObstacleTag>();
-    enemy->Add<HealthComponent>(250);
+    enemy->Add<HealthComponent>(300);
     enemy->Add<DamageComponent>(100);
   }
+
+  auto close = engine.GetEntityManager()->CreateEntity();
+  close->Add<PositionComponent>(Vec2(31, 14));
+  close->Add<ObstacleTag>();
+  close->Add<TextureComponent>('#');
+
+  auto close_id = close->GetId();
+
+  auto key = engine.GetEntityManager()->CreateEntity();
+  key->Add<PositionComponent>(levelManager_.key_pos_);
+  key->Add<TextureComponent>('-');
+  key->Add<TakeableTag>();
+  key->Add<OpenDoorComponent>();
+
+  auto key_id = key->GetId();
 
   auto player = engine.GetEntityManager()->CreateEntity();
   player->Add<PositionComponent>(levelManager_.player_pos_);
@@ -75,8 +88,6 @@ void GameScene::OnCreate() {
 
   auto player_id = player->GetId();
 
-  auto systemManager = engine.GetSystemManager();
-
   systemManager->AddSystem<RenderSystem>(ctx_);
   systemManager->AddSystem<ControlSystem>(controls_);
   systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, prev_level_, next_level_);
@@ -85,13 +96,17 @@ void GameScene::OnCreate() {
   systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
   systemManager->AddSystem<DeathSystem>();
   systemManager->AddSystem<PursuerSystem>(ctx_, &levelManager_, player_id);
+  systemManager->AddSystem<DoorSystem>(&levelManager_, close_id, key_id);
 }
 
 void GameScene::OnRender() {
+  if (ctx_->restart) {
+    levelManager_.GetLevel(level_file_);
+  }
   engine.OnUpdate();
   if (controls_.IsPressed(TK_ESCAPE)) {
-    ctx_->scene_ = "title";
     ctx_->restart = true;
+    ctx_->scene_ = "title";
   }
 }
 

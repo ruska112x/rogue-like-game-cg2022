@@ -8,6 +8,7 @@
 // components
 #include "../include/game/components/color_component.h"
 #include "../include/game/components/control_component.h"
+#include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/step_component.h"

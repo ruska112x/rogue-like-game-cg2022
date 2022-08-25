@@ -14,6 +14,7 @@ class LevelManager {
   Vec2 player_pos_;
   Vec2 prev_door_pos_;
   Vec2 next_door_pos_;
+  Vec2 key_pos_;
   std::vector<Vec2> enemy_pos_;
   std::vector<Vec2> walls_pos_;
   std::vector<Vec2> food_pos_;
@@ -103,6 +104,9 @@ class LevelManager {
       }
       if (symbol == '%') {
         food_pos_.emplace_back(Vec2(i, j));
+      }
+      if (symbol == '-') {
+        key_pos_ = Vec2(i, j);
       }
       i++;
       if (symbol == '\n') {

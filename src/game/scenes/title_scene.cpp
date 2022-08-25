@@ -2,7 +2,9 @@
 
 TitleScene::TitleScene(Context* ctx, Controls* controls) : IScene(ctx), controls_(*controls), x(11), y(8) {}
 
-void TitleScene::OnCreate() {}
+void TitleScene::OnCreate() {
+  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
+}
 
 void TitleScene::OnRender() {
   terminal_clear();

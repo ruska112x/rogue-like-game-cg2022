@@ -6,29 +6,13 @@
 RandomScene::RandomScene(Context *ctx, const Controls &controls, std::string next_level)
     : IScene(ctx), controls_(controls), next_level_(std::move(next_level)) {
   levelManager_.GetRandomLevel();
-  ctx_->player_health_ = 1000;
-  ctx_->player_steps_ = 0;
-  ctx_->player_max_steps_ = 256;
-  ctx_->player_damage_ = 100;
 }
 
 void RandomScene::OnCreate() {
   if (ctx_->restart) {
     levelManager_.GetRandomLevel();
+    ctx_->restart = false;
   }
-  auto player = engine.GetEntityManager()->CreateEntity();
-  player->Add<PositionComponent>(levelManager_.player_pos_);
-  player->Add<TextureComponent>('@');
-  player->Add<ColorComponent>(color_from_name("cyan"));
-  player->Add<HealthComponent>(ctx_->player_health_);
-  player->Add<StepComponent>(ctx_->player_max_steps_);
-  player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
-  player->Add<TransformComponent>(ZeroVec2);
-  player->Add<DamageComponent>(ctx_->player_damage_);
-  player->Add<ObstacleTag>();
-
-  auto player_id = player->GetId();
-
   auto next_door = engine.GetEntityManager()->CreateEntity();
   next_door->Add<PositionComponent>(levelManager_.next_door_pos_);
   next_door->Add<TextureComponent>('>');
@@ -69,6 +53,19 @@ void RandomScene::OnCreate() {
     enemy->Add<DamageComponent>(100);
   }
 
+  auto player = engine.GetEntityManager()->CreateEntity();
+  player->Add<PositionComponent>(levelManager_.player_pos_);
+  player->Add<TextureComponent>('@');
+  player->Add<ColorComponent>(color_from_name("cyan"));
+  player->Add<HealthComponent>(ctx_->player_health_);
+  player->Add<StepComponent>(ctx_->player_max_steps_);
+  player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
+  player->Add<TransformComponent>(ZeroVec2);
+  player->Add<DamageComponent>(ctx_->player_damage_);
+  player->Add<ObstacleTag>();
+
+  auto player_id = player->GetId();
+
   auto systemManager = engine.GetSystemManager();
 
   systemManager->AddSystem<RenderSystem>(ctx_);
@@ -82,10 +79,13 @@ void RandomScene::OnCreate() {
 }
 
 void RandomScene::OnRender() {
+  if (ctx_->restart) {
+    levelManager_.GetRandomLevel();
+  }
   engine.OnUpdate();
   if (controls_.IsPressed(TK_ESCAPE)) {
-    ctx_->scene_ = "title";
     ctx_->restart = true;
+    ctx_->scene_ = "title";
   }
 }
 
