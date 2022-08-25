@@ -1,10 +1,9 @@
 #include "../include/game/scenes/title_scene.h"
 
-TitleScene::TitleScene(Context* ctx, Controls* controls) : IScene(ctx), controls_(*controls) {}
+TitleScene::TitleScene(Context* ctx, Controls* controls) : IScene(ctx), controls_(*controls), x(11), y(8) {}
 
 void TitleScene::OnCreate() {
-  x = 11;
-  y = 8;
+  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
 }
 
 void TitleScene::OnRender() {
@@ -28,11 +27,17 @@ void TitleScene::OnRender() {
       ctx_->exit = true;
     }
   }
-  if (controls_.IsPressed(TK_UP) && (y > 8)) {
+  if (controls_.IsPressed(TK_UP)) {
     y -= 1;
+    if (y == 7) {
+      y = 10;
+    }
   }
-  if (controls_.IsPressed(TK_DOWN) && (y < 10)) {
+  if (controls_.IsPressed(TK_DOWN)) {
     y += 1;
+    if (y == 11) {
+      y = 8;
+    }
   }
   terminal_refresh();
 }

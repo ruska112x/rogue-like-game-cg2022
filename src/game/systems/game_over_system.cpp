@@ -8,9 +8,11 @@ void GameOverSystem::OnUpdate() {
   auto phc = player->Get<HealthComponent>();
   auto psc = player->Get<StepComponent>();
   if (phc->health_ <= 0) {
+    ctx_.restart = true;
     ctx_.scene_ = "game_over";
   }
   if (psc->step_count_ >= psc->max_steps_on_level_) {
+    ctx_.restart = true;
     ctx_.scene_ = "game_over";
   }
 }

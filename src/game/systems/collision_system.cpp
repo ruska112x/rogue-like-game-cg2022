@@ -42,26 +42,33 @@ void CollisionSystem::OnUpdate() {
             entityTransform->transform_vec2_ = ZeroVec2;
           }
         }
-        // player and food collision
-        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<SaturationComponent>() &&
-            obstacle.Contains<TakeableTag>()) {
+        // player and takeable collision
+        if (obstacle.Contains<PositionComponent>() && obstacle.Contains<TakeableTag>()) {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
-          auto obstacleSaturation = obstacle.Get<SaturationComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
-            entityHealth->health_ += obstacleSaturation->saturation_;
-            for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
-              if (obstaclePosition->position_ == levelManager_.food_pos_[i]) {
-                levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
-                break;
+            if (obstacle.Contains<SaturationComponent>()) {
+              auto obstacleSaturation = obstacle.Get<SaturationComponent>();
+              entityHealth->health_ += obstacleSaturation->saturation_;
+              for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
+                if (obstaclePosition->position_ == levelManager_.food_pos_[i]) {
+                  levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
+                  break;
+                }
               }
             }
-            GetEntityManagerPtr()->DeleteEntity(obstacle.GetId());
+            if (obstacle.Contains<OpenDoorComponent>()) {
+              auto odc = obstacle.Get<OpenDoorComponent>();
+              odc->is_open_ = true;
+            }
+            obstacle.Delete<PositionComponent>();
+            obstacle.Delete<TextureComponent>();
           }
         }
         // player and prev_door collision
         if (obstacle.Contains<PositionComponent>() && obstacle.Contains<PrevDoorTag>()) {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
+            ctx_.restart = false;
             sceneChanger.changeLevel(prev_level_);
           }
         }

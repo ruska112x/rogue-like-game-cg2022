@@ -8,9 +8,26 @@ SettingsScene::SettingsScene(Context *ctx, Controls *controls)
       rand_accept('-'),
       prepare_accept('+'),
       ascii_accept('+'),
-      tile_accept('-') {}
+      sprite_accept('-') {
+  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
+}
 
-void SettingsScene::OnCreate() {}
+void SettingsScene::OnCreate() {
+  if (ctx_->sprite) {
+    ascii_accept = '-';
+    sprite_accept = '+';
+  } else {
+    ascii_accept = '+';
+    sprite_accept = '-';
+  }
+  if (ctx_->random) {
+    rand_accept = '+';
+    prepare_accept = '-';
+  } else {
+    rand_accept = '-';
+    prepare_accept = '+';
+  }
+}
 
 void SettingsScene::OnRender() {
   terminal_clear();
@@ -18,8 +35,8 @@ void SettingsScene::OnRender() {
   terminal_print(10, 8, "Graphics:");
   terminal_printf(11, 9, "%c", ascii_accept);
   terminal_print(12, 9, "ascii");
-  terminal_printf(11, 10, "%c", tile_accept);
-  terminal_print(12, 10, "tile");
+  terminal_printf(11, 10, "%c", sprite_accept);
+  terminal_print(12, 10, "sprite");
   terminal_print(10, 11, "Random level:");
   terminal_printf(11, 12, "%c", rand_accept);
   terminal_print(12, 12, "random");
@@ -28,14 +45,14 @@ void SettingsScene::OnRender() {
   terminal_print(12, 14, "Exit");
   if (controls_.IsPressed(TK_ENTER)) {
     if (y == 9) {
-      ctx_->tile = false;
+      ctx_->sprite = false;
       ascii_accept = '+';
-      tile_accept = '-';
+      sprite_accept = '-';
     }
     if (y == 10) {
-      ctx_->tile = true;
+      ctx_->sprite = true;
       ascii_accept = '-';
-      tile_accept = '+';
+      sprite_accept = '+';
     }
     if (y == 12) {
       ctx_->random = true;
@@ -51,11 +68,20 @@ void SettingsScene::OnRender() {
       ctx_->scene_ = "title";
     }
   }
-  if (controls_.IsPressed(TK_UP) && (y > 8)) {
+  if (controls_.IsPressed(TK_UP)) {
     y -= 1;
+    if (y == 7) {
+      y = 14;
+    }
   }
-  if (controls_.IsPressed(TK_DOWN) && (y < 14)) {
+  if (controls_.IsPressed(TK_DOWN)) {
     y += 1;
+    if (y == 15) {
+      y = 8;
+    }
+  }
+  if (controls_.IsPressed(TK_ESCAPE)) {
+    ctx_->scene_ = "title";
   }
   terminal_refresh();
 }

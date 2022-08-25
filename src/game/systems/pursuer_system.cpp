@@ -37,10 +37,6 @@ void PursuerSystem::OnUpdate() {
           // TODO: fix fight when between player and enemy ONE cell
           if ((playerPosition->position_ + playerTransform->transform_vec2_) ==
               (enemyPosition->position_ + enemyTransform->transform_vec2_)) {
-            //            if (playerPosition->position_ != enemyPosition->position_) {
-            //              enemyHealth->health_ -= playerDamage->damage_;
-            //              playerHealth->health_ -= enemyDamage->damage_;
-            //            }
             if (enemyHealth->health_ > 0) {
               enemyHealth->health_ -= playerDamage->damage_;
               playerHealth->health_ -= enemyDamage->damage_;

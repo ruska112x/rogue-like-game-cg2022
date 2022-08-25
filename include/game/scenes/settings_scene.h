@@ -14,7 +14,7 @@ class SettingsScene : public IScene {
   char rand_accept;
   char prepare_accept;
   char ascii_accept;
-  char tile_accept;
+  char sprite_accept;
   SettingsScene(Context* ctx, Controls* controls);
 
   void OnCreate() override;
