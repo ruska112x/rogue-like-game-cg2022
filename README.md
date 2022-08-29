@@ -30,4 +30,3 @@ Social Credits(virtual? rating system)
 > 1. Cheat System (try press WASD on level 0 and in settings)
 > 2. Enemy can eat food
 > 3. Wife feed you and restore your HP
-> 4.
