@@ -8,7 +8,7 @@ void TitleScene::OnCreate() {
 
 void TitleScene::OnRender() {
   terminal_clear();
-  terminal_print(x, y, "@");
+  terminal_print(x, y, ">");
   terminal_print(12, 8, "Start game");
   terminal_print(12, 9, "Settings");
   terminal_print(12, 10, "Exit");

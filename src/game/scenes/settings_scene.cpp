@@ -27,11 +27,14 @@ void SettingsScene::OnCreate() {
     rand_accept = '-';
     prepare_accept = '+';
   }
+  auto systemManager = engine.GetSystemManager();
+  systemManager->AddSystem<CheatSystem>(controls_, ctx_);
 }
 
 void SettingsScene::OnRender() {
+  engine.OnUpdate();
   terminal_clear();
-  terminal_print(x, y, "@");
+  terminal_print(x, y, ">");
   terminal_print(10, 8, "Graphics:");
   terminal_printf(11, 9, "%c", ascii_accept);
   terminal_print(12, 9, "ascii");

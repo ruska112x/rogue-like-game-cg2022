@@ -6,6 +6,7 @@
 #include "../include/lib/ecs/engine.h"
 #include "../include/lib/scenes/i_scene.h"
 // game
+#include "../include/game/components/social_credit_component.h"
 #include "../include/game/controls.h"
 
 class GameOverScene : public IScene {

@@ -21,6 +21,7 @@ void CollisionSystem::OnUpdate() {
       auto entityTransform = entity.Get<TransformComponent>();
       auto entityControl = entity.Get<ControlComponent>();
       auto entityHealth = entity.Get<HealthComponent>();
+      auto entitySocialCredit = entity.Get<SocialCreditComponent>();
       if (entityControl->left_pressed_) {
         entityTransform->transform_vec2_ = LeftVec2;
       }
@@ -59,6 +60,8 @@ void CollisionSystem::OnUpdate() {
             if (obstacle.Contains<OpenDoorComponent>()) {
               auto odc = obstacle.Get<OpenDoorComponent>();
               odc->is_open_ = true;
+              levelManager_.key_pos_ = ZeroVec2;
+              levelManager_.close_pos_ = ZeroVec2;
             }
             obstacle.Delete<PositionComponent>();
             obstacle.Delete<TextureComponent>();

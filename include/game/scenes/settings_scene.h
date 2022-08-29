@@ -4,12 +4,15 @@
 #include <BearLibTerminal.h>
 
 #include "../include/game/controls.h"
+#include "../include/game/systems/cheat_system.h"
+#include "../include/lib/ecs/engine.h"
 #include "../include/lib/scenes/i_scene.h"
 
 class SettingsScene : public IScene {
   Controls& controls_;
 
  public:
+  const Engine engine{};
   int x{}, y{};
   char rand_accept;
   char prepare_accept;

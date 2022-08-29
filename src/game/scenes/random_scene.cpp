@@ -9,6 +9,11 @@ RandomScene::RandomScene(Context *ctx, const Controls &controls, std::string nex
 }
 
 void RandomScene::OnCreate() {
+  ctx_->p_health_ = 1000;
+  ctx_->p_steps_ = 0;
+  ctx_->p_max_steps_ = 256;
+  ctx_->p_damage_ = 150;
+  ctx_->p_credits_ = 100;
   if (ctx_->restart) {
     levelManager_.GetRandomLevel();
     ctx_->restart = false;
@@ -49,22 +54,23 @@ void RandomScene::OnCreate() {
     enemy->Add<ColorComponent>(color_from_name("red"));
     enemy->Add<EnemyTag>();
     enemy->Add<ObstacleTag>();
-    enemy->Add<HealthComponent>(250);
-    enemy->Add<DamageComponent>(100);
+    enemy->Add<HealthComponent>(200);
+    enemy->Add<DamageComponent>(50);
   }
 
   auto player = engine.GetEntityManager()->CreateEntity();
   player->Add<PositionComponent>(levelManager_.player_pos_);
   player->Add<TextureComponent>('@');
   player->Add<ColorComponent>(color_from_name("cyan"));
-  player->Add<HealthComponent>(ctx_->player_health_);
-  player->Add<StepComponent>(ctx_->player_max_steps_);
+  player->Add<HealthComponent>(ctx_->p_health_);
+  player->Add<StepComponent>(ctx_->p_steps_, ctx_->p_max_steps_);
+  player->Add<SocialCreditComponent>(ctx_->p_credits_);
   player->Add<ControlComponent>(TK_LEFT, TK_UP, TK_RIGHT, TK_DOWN);
   player->Add<TransformComponent>(ZeroVec2);
-  player->Add<DamageComponent>(ctx_->player_damage_);
+  player->Add<DamageComponent>(ctx_->p_damage_);
   player->Add<ObstacleTag>();
 
-  auto player_id = player->GetId();
+  player_id_ = player->GetId();
 
   auto systemManager = engine.GetSystemManager();
 
@@ -72,10 +78,10 @@ void RandomScene::OnCreate() {
   systemManager->AddSystem<ControlSystem>(controls_);
   systemManager->AddSystem<CollisionSystem>(ctx_, &levelManager_, "-", next_level_);
   systemManager->AddSystem<TransformSystem>();
-  systemManager->AddSystem<UISystem>(player_id);
-  systemManager->AddSystem<GameOverSystem>(ctx_, player_id);
+  systemManager->AddSystem<UISystem>(player_id_);
+  systemManager->AddSystem<GameOverSystem>(ctx_, player_id_);
   systemManager->AddSystem<DeathSystem>();
-  systemManager->AddSystem<PursuerSystem>(ctx_, &levelManager_, player_id);
+  systemManager->AddSystem<PursuerSystem>(ctx_, &levelManager_, player_id_);
 }
 
 void RandomScene::OnRender() {
@@ -83,6 +89,10 @@ void RandomScene::OnRender() {
     levelManager_.GetRandomLevel();
   }
   engine.OnUpdate();
+  ctx_->p_health_ = engine.GetEntityManager()->Get(player_id_)->Get<HealthComponent>()->health_;
+  ctx_->p_damage_ = engine.GetEntityManager()->Get(player_id_)->Get<DamageComponent>()->damage_;
+  ctx_->p_steps_ = engine.GetEntityManager()->Get(player_id_)->Get<StepComponent>()->step_count_;
+  ctx_->p_credits_ = engine.GetEntityManager()->Get(player_id_)->Get<SocialCreditComponent>()->social_credits_;
   if (controls_.IsPressed(TK_ESCAPE)) {
     ctx_->restart = true;
     ctx_->scene_ = "title";

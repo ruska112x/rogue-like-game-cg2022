@@ -7,7 +7,7 @@
 int main() {
   terminal_open();
   terminal_set(
-      "window: title='Crazy Cube Adventure', cellsize = 32x32, size = 33x23;"
+      "window: title='CCC', cellsize = 32x32, size = 33x23;"
       "font: assets/fonts/jbm.ttf, size=26");
   terminal_refresh();
 
@@ -15,10 +15,11 @@ int main() {
   Context ctx{};
   SceneManager sm(ctx);
 
-  ctx.player_health_ = 1000;
-  ctx.player_steps_ = 0;
-  ctx.player_max_steps_ = 128;
-  ctx.player_damage_ = 100;
+  ctx.p_health_ = 1000;
+  ctx.p_steps_ = 0;
+  ctx.p_max_steps_ = 512;
+  ctx.p_damage_ = 100;
+  ctx.p_credits_ = 100;
 
   sm.Put("title", new TitleScene(&ctx, &controls));
   sm.Put("settings", new SettingsScene(&ctx, &controls));
@@ -38,14 +39,6 @@ int main() {
     controls.OnUpdate();
     if (controls.IsPressed(TK_CLOSE)) {
       break;
-    }
-    if (controls.IsPressed(TK_X) && (ctx.scene_ == "level0")) {
-      ctx.scene_ = "level3";
-    }
-    if (controls.IsPressed(TK_S) && (ctx.scene_ == "settings")) {
-      ctx.player_damage_ = 200;
-      ctx.player_max_steps_ = 512;
-      ctx.scene_ = "secret";
     }
     sm.OnRender();
     controls.Reset();

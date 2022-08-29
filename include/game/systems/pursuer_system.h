@@ -12,12 +12,15 @@
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/saturation_component.h"
+#include "../include/game/components/social_credit_component.h"
 #include "../include/game/components/step_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 #include "../include/game/level_manager.h"
 #include "../include/game/tags/enemy_tag.h"
 #include "../include/game/tags/obstacle_tag.h"
+#include "../include/game/tags/takeable_tag.h"
+#include "../include/game/tags/wife_tag.h"
 
 class PursuerSystem : public ISystem {
  public:

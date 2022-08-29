@@ -14,6 +14,7 @@
 #include "../include/game/components/open_door_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/saturation_component.h"
+#include "../include/game/components/social_credit_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 #include "../include/game/level_manager.h"

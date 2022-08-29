@@ -2,10 +2,10 @@
 #define INCLUDE_GAME_LEVEL_MANAGER_H_
 
 #include <fstream>
-#include <random>
 #include <string>
 #include <vector>
 
+#include "../include/game/rand.h"
 #include "../include/lib/math/vec2.h"
 #include "../include/lib/scenes/context.h"
 
@@ -15,16 +15,11 @@ class LevelManager {
   Vec2 prev_door_pos_;
   Vec2 next_door_pos_;
   Vec2 key_pos_;
+  Vec2 close_pos_;
+  Vec2 wife_pos_;
   std::vector<Vec2> enemy_pos_;
   std::vector<Vec2> walls_pos_;
   std::vector<Vec2> food_pos_;
-
-  static int rand_int(int min, int max) {
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist(min, max);
-    return static_cast<int>(dist(rng));
-  }
 
   void GetRandomLevel() {
     player_pos_ = ZeroVec2;
@@ -55,13 +50,13 @@ class LevelManager {
     for (j = 2; j < 14; ++j) {
       for (i = 1; i < 32; ++i) {
         int rand_key = rand_int(0, 100);
-        if (rand_key == 1) {
+        if ((rand_key >= 0) && (rand_key <= 5)) {
           enemy_pos_.emplace_back(i, j);
         }
-        if ((rand_key >= 10) && (rand_key <= 30)) {
+        if ((rand_key >= 20) && (rand_key <= 40)) {
           walls_pos_.emplace_back(i, j);
         }
-        if ((rand_key >= 50) && (rand_key <= 60)) {
+        if ((rand_key >= 50) && (rand_key <= 80)) {
           food_pos_.emplace_back(i, j);
         }
       }
@@ -72,6 +67,8 @@ class LevelManager {
     player_pos_ = ZeroVec2;
     prev_door_pos_ = ZeroVec2;
     next_door_pos_ = ZeroVec2;
+    close_pos_ = ZeroVec2;
+    wife_pos_ = ZeroVec2;
     while (!enemy_pos_.empty()) {
       enemy_pos_.pop_back();
     }
@@ -89,6 +86,12 @@ class LevelManager {
       fin.get(symbol);
       if (symbol == '@') {
         player_pos_ = Vec2(i, j);
+      }
+      if (symbol == '=') {
+        close_pos_ = Vec2(i, j);
+      }
+      if (symbol == '&') {
+        wife_pos_ = Vec2(i, j);
       }
       if (symbol == '<') {
         prev_door_pos_ = Vec2(i, j);

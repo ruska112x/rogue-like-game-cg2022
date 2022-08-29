@@ -8,7 +8,7 @@ void DeathSystem::OnUpdate() {
         entity.Contains<TextureComponent>()) {
       auto ehc = entity.Get<HealthComponent>();
       if (ehc->health_ <= 0) {
-        GetEntityManagerPtr()->DeleteEntity(entity.GetId());
+        GetEntityManagerPtr()->Get(entity.GetId())->Delete<TextureComponent>();
       }
     }
   }
