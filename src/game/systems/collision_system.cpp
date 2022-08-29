@@ -50,12 +50,6 @@ void CollisionSystem::OnUpdate() {
             if (obstacle.Contains<SaturationComponent>()) {
               auto obstacleSaturation = obstacle.Get<SaturationComponent>();
               entityHealth->health_ += obstacleSaturation->saturation_;
-              for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
-                if (obstaclePosition->position_ == levelManager_.food_pos_[i]) {
-                  levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
-                  break;
-                }
-              }
             }
             if (obstacle.Contains<OpenDoorComponent>()) {
               auto odc = obstacle.Get<OpenDoorComponent>();

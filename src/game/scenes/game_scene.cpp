@@ -13,6 +13,7 @@ GameScene::GameScene(Context* const ctx, const Controls& controls, std::string l
 }
 
 void GameScene::OnCreate() {
+  is_created_ = true;
   if (ctx_->restart) {
     levelManager_.GetLevel(level_file_);
     ctx_->p_health_ = 1000;

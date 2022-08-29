@@ -4,7 +4,7 @@ CheatSystem::CheatSystem(EntityManager *em, SystemManager *sm, const Controls &c
     : ISystem(em, sm), controls_(controls), ctx_(*ctx) {}
 
 void CheatSystem::OnUpdate() {
-  if (controls_.IsPressed(TK_X) && (ctx_.scene_ == "level0")) {
+  if (controls_.IsPressed(TK_W) && (ctx_.scene_ == "level0")) {
     ctx_.scene_ = "level3";
   }
   if (controls_.IsPressed(TK_S) && (ctx_.scene_ == "settings")) {

@@ -13,10 +13,10 @@ void GameOverScene::OnRender() {
   ctx_->p_credits_ = -1000000;
   if (ctx_->p_credits_ > 0) {
     terminal_printf(6, 7, "+%d Social Credit", ctx_->p_credits_);
-    terminal_put(30, 7, 0x5b);
+    terminal_put(30, 6, 0x5b);
   } else {
     terminal_printf(6, 7, "%d Social Credit", ctx_->p_credits_);
-    terminal_put(30, 7, 0x5d);
+    terminal_put(30, 6, 0x5d);
   }
   terminal_printf(6, 8, "Press ENTER to go to main menu");
   if (controls_.IsPressed(TK_ENTER)) {
