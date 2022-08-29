@@ -13,16 +13,18 @@
 | < >    | Doors       |
 
 ---
-> Player has:
-> HP(Health Points),
-> DP(Damage points),
-> Steps(Current steps),
-> Max Steps(Maximum number of steps for all levels),
-> Social Credits(virtual? rating system)
-> + Use arrow keys to move Player
-> + Eat % to restore HP
-> + Kill Enemy and earn Social Credits
-> + Enter to '>' and go to the next level(there are 4 levels in total)
+Player has:
+HP(Health Points),
+DP(Damage points),
+Steps(Current steps),
+Max Steps(Maximum number of steps for all levels),
+Social Credits(virtual? rating system)
+
++ Use arrow keys to move Player
++ Eat % to restore HP
++ Kill Enemy and earn Social Credits
++ Enter to '>' and go to the next level(there are 4 levels in total)
+
 ---
 > Special Features:
 > 1. Cheat System (try press WASD on level 0 and in settings)
