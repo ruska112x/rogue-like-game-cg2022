@@ -74,10 +74,10 @@ void CollisionSystem::OnUpdate() {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             sceneChanger.changeLevel(next_level_);
-            if (!ctx_.random) {
-              levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
-              levelManager_.player_pos_.y = obstaclePosition->position_.y;
-            }
+            //            if (!ctx_.random) {
+            //              levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
+            //              levelManager_.player_pos_.y = obstaclePosition->position_.y;
+            //            }
           }
         }
       }

@@ -17,7 +17,7 @@ int main() {
 
   ctx.p_health_ = 1000;
   ctx.p_steps_ = 0;
-  ctx.p_max_steps_ = 512;
+  ctx.p_max_steps_ = 384;
   ctx.p_damage_ = 100;
   ctx.p_credits_ = 100;
 
