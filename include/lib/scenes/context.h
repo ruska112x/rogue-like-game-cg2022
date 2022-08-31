@@ -22,10 +22,11 @@ class Context {
   bool random = false;
   bool sprite = false;
 
-  int player_health_;
-  int player_steps_;
-  int player_max_steps_;
-  int player_damage_;
+  int p_health_;
+  int p_steps_;
+  int p_max_steps_;
+  int p_damage_;
+  int p_credits_;
 };
 
 #endif  // INCLUDE_LIB_SCENES_CONTEXT_H_

@@ -12,9 +12,7 @@ void TransformSystem::OnUpdate() {
         auto esc = entity.Get<StepComponent>();
         esc->step_count_ += static_cast<int>(etc->transform_vec2_.Magnitude());
       }
-      if (entity.Contains<ControlComponent>() || entity.Contains<EnemyTag>()) {
-        etc->transform_vec2_ = ZeroVec2;
-      }
+      etc->transform_vec2_ = ZeroVec2;
     }
   }
 }

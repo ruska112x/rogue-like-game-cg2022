@@ -42,6 +42,7 @@ class RandomScene : public IScene {
   const Controls& controls_;
   LevelManager levelManager_;
   std::string next_level_;
+  int player_id_;
 
  public:
   RandomScene(Context* ctx, const Controls& controls, std::string next_level);

@@ -8,7 +8,8 @@ class StepComponent : public IComponent {
   int step_count_ = 0;
   int max_steps_on_level_ = 0;
 
-  explicit StepComponent(int max_steps_on_level) : max_steps_on_level_(max_steps_on_level) {}
+  explicit StepComponent(int step_count, int max_steps_on_level)
+      : step_count_(step_count), max_steps_on_level_(max_steps_on_level) {}
 };
 
 #endif  // INCLUDE_GAME_COMPONENTS_STEP_COMPONENT_H_

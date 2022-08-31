@@ -16,8 +16,10 @@
 #include "../include/game/components/control_component.h"
 #include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
+#include "../include/game/components/more_steps_component.h"
 #include "../include/game/components/open_door_component.h"
 #include "../include/game/components/position_component.h"
+#include "../include/game/components/social_credit_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags
@@ -25,7 +27,9 @@
 #include "../include/game/tags/obstacle_tag.h"
 #include "../include/game/tags/prev_door_tag.h"
 #include "../include/game/tags/takeable_tag.h"
+#include "../include/game/tags/wife_tag.h"
 // systems
+#include "../include/game/systems/cheat_system.h"
 #include "../include/game/systems/collision_system.h"
 #include "../include/game/systems/control_system.h"
 #include "../include/game/systems/death_system.h"
@@ -46,6 +50,8 @@ class GameScene : public IScene {
   std::string level_file_;
   std::string prev_level_;
   std::string next_level_;
+
+  int player_id_;
 
  public:
   GameScene(Context* ctx, const Controls& controls, std::string level_file, std::string prev_level,

@@ -16,6 +16,7 @@ class IScene {
   Context* const ctx_;
 
  public:
+  bool is_created_ = false;
   /**
    * Все сцены обязаны принимать на вход и зхранить указатель на Context.
    * @param ctx В контексте хранится информация о сцене, которую нужно сейчас отрисоватывать.

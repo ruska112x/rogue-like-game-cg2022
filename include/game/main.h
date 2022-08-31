@@ -4,6 +4,7 @@
 #include <BearLibTerminal.h>
 
 #include <string>
+
 // ecs
 #include "../include/lib/ecs/component.h"
 #include "../include/lib/ecs/engine.h"
@@ -25,6 +26,7 @@
 #include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
 #include "../include/game/components/position_component.h"
+#include "../include/game/components/social_credit_component.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags

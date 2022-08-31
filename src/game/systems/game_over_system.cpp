@@ -11,7 +11,7 @@ void GameOverSystem::OnUpdate() {
     ctx_.restart = true;
     ctx_.scene_ = "game_over";
   }
-  if (psc->step_count_ >= psc->max_steps_on_level_) {
+  if (psc->step_count_ > psc->max_steps_on_level_) {
     ctx_.restart = true;
     ctx_.scene_ = "game_over";
   }

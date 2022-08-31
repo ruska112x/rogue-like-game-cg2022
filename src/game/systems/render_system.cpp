@@ -11,6 +11,8 @@ void RenderSystem::OnUpdate() {
     terminal_set("0x25: assets/sprites/food.png");
     terminal_set("0x45: assets/sprites/enemy.png");
     terminal_set("0x2d: assets/sprites/key.png");
+    terminal_set("0x26: assets/sprites/cat.png");
+    terminal_set("0x7e: assets/sprites/redbull.png");
     terminal_set("0x40: assets/sprites/player.png");
     for (auto& entity : GetEntityManager()) {
       if (entity.Contains<PositionComponent>() && entity.Contains<TextureComponent>()) {
@@ -26,10 +28,14 @@ void RenderSystem::OnUpdate() {
           terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x25);
         } else if (etc->symbol_ == 'E') {
           terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x45);
-        } else if (etc->symbol_ == '@') {
-          terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x40);
         } else if (etc->symbol_ == '-') {
           terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x2d);
+        } else if (etc->symbol_ == '&') {
+          terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x26);
+        } else if (etc->symbol_ == '~') {
+          terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x7e);
+        } else if (etc->symbol_ == '@') {
+          terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), 0x40);
         } else {
           terminal_put(static_cast<int>(epc->position_.x), static_cast<int>(epc->position_.y), etc->symbol_);
         }

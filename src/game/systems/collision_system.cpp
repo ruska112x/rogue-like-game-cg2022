@@ -21,6 +21,8 @@ void CollisionSystem::OnUpdate() {
       auto entityTransform = entity.Get<TransformComponent>();
       auto entityControl = entity.Get<ControlComponent>();
       auto entityHealth = entity.Get<HealthComponent>();
+      auto entityMax = entity.Get<StepComponent>();
+      auto entitySocialCredit = entity.Get<SocialCreditComponent>();
       if (entityControl->left_pressed_) {
         entityTransform->transform_vec2_ = LeftVec2;
       }
@@ -49,16 +51,16 @@ void CollisionSystem::OnUpdate() {
             if (obstacle.Contains<SaturationComponent>()) {
               auto obstacleSaturation = obstacle.Get<SaturationComponent>();
               entityHealth->health_ += obstacleSaturation->saturation_;
-              for (int i = 0; i < levelManager_.food_pos_.size(); ++i) {
-                if (obstaclePosition->position_ == levelManager_.food_pos_[i]) {
-                  levelManager_.food_pos_.erase(levelManager_.food_pos_.cbegin() + i);
-                  break;
-                }
-              }
+            }
+            if (obstacle.Contains<MoreStepsComponent>()) {
+              auto obstacleSteps = obstacle.Get<MoreStepsComponent>();
+              entityMax->max_steps_on_level_ += obstacleSteps->more_steps_;
             }
             if (obstacle.Contains<OpenDoorComponent>()) {
               auto odc = obstacle.Get<OpenDoorComponent>();
               odc->is_open_ = true;
+              levelManager_.key_pos_ = ZeroVec2;
+              levelManager_.close_pos_ = ZeroVec2;
             }
             obstacle.Delete<PositionComponent>();
             obstacle.Delete<TextureComponent>();
@@ -77,10 +79,10 @@ void CollisionSystem::OnUpdate() {
           auto obstaclePosition = obstacle.Get<PositionComponent>();
           if ((entityPosition->position_ + entityTransform->transform_vec2_) == obstaclePosition->position_) {
             sceneChanger.changeLevel(next_level_);
-            if (!ctx_.random) {
-              levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
-              levelManager_.player_pos_.y = obstaclePosition->position_.y;
-            }
+            //            if (!ctx_.random) {
+            //              levelManager_.player_pos_.x = obstaclePosition->position_.x - 1;
+            //              levelManager_.player_pos_.y = obstaclePosition->position_.y;
+            //            }
           }
         }
       }

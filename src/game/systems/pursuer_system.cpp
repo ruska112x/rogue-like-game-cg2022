@@ -12,6 +12,7 @@ void PursuerSystem::OnUpdate() {
   auto playerControl = player->Get<ControlComponent>();
   auto playerHealth = player->Get<HealthComponent>();
   auto playerDamage = player->Get<DamageComponent>();
+  auto playerSocialCredit = player->Get<SocialCreditComponent>();
   for (auto& enemy : GetEntityManager()) {
     if (enemy.Contains<PositionComponent>() && enemy.Contains<TransformComponent>() && enemy.Contains<EnemyTag>()) {
       auto enemyPosition = enemy.Get<PositionComponent>();
@@ -34,12 +35,12 @@ void PursuerSystem::OnUpdate() {
         }
         for (auto& obstacle : GetEntityManager()) {
           // enemy and player FIGHT
-          // TODO: fix fight when between player and enemy ONE cell
           if ((playerPosition->position_ + playerTransform->transform_vec2_) ==
               (enemyPosition->position_ + enemyTransform->transform_vec2_)) {
             if (enemyHealth->health_ > 0) {
               enemyHealth->health_ -= playerDamage->damage_;
               playerHealth->health_ -= enemyDamage->damage_;
+              playerSocialCredit->social_credits_ += 10;
             }
             enemyTransform->transform_vec2_ = ZeroVec2;
             playerTransform->transform_vec2_ = ZeroVec2;
@@ -48,6 +49,14 @@ void PursuerSystem::OnUpdate() {
             }
             if (playerHealth->health_ <= 0) {
               ctx_.scene_ = "game_over";
+            }
+          }
+          // enemy and wife collision
+          if (obstacle.Contains<WifeTag>()) {
+            auto wifeHealth = obstacle.Get<HealthComponent>();
+            auto wifePosition = obstacle.Get<PositionComponent>();
+            if (wifePosition->position_ == enemyPosition->position_) {
+              wifeHealth->health_ -= enemyDamage->damage_;
             }
           }
           // enemy and enemy collision
@@ -65,6 +74,54 @@ void PursuerSystem::OnUpdate() {
             auto obstaclePosition = obstacle.Get<PositionComponent>();
             if ((enemyPosition->position_ + enemyTransform->transform_vec2_) == obstaclePosition->position_) {
               enemyTransform->transform_vec2_ = ZeroVec2;
+            }
+          }
+          // enemy and food collision
+          if (obstacle.Contains<PositionComponent>() && obstacle.Contains<TakeableTag>()) {
+            auto obstaclePosition = obstacle.Get<PositionComponent>();
+            if ((enemyPosition->position_ + enemyTransform->transform_vec2_) == obstaclePosition->position_) {
+              if (obstacle.Contains<SaturationComponent>()) {
+                auto obstacleSaturation = obstacle.Get<SaturationComponent>();
+                enemyHealth->health_ += obstacleSaturation->saturation_;
+                obstacle.Delete<PositionComponent>();
+                obstacle.Delete<TextureComponent>();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  for (auto& wife : GetEntityManager()) {
+    if (wife.Contains<WifeTag>()) {
+      auto wifePosition = wife.Get<PositionComponent>();
+      auto wifeTransform = wife.Get<TransformComponent>();
+      auto wifeHealth = wife.Get<HealthComponent>();
+      if (playerControl->left_pressed_ || playerControl->up_pressed_ || playerControl->right_pressed_ ||
+          playerControl->down_pressed_) {
+        if (playerPosition->position_.x < wifePosition->position_.x) {
+          wifeTransform->transform_vec2_ = LeftVec2;
+        }
+        if (playerPosition->position_.x > wifePosition->position_.x) {
+          wifeTransform->transform_vec2_ = RightVec2;
+        }
+        if (playerPosition->position_.y < wifePosition->position_.y) {
+          wifeTransform->transform_vec2_ = UpVec2;
+        }
+        if (playerPosition->position_.y > wifePosition->position_.y) {
+          wifeTransform->transform_vec2_ = DownVec2;
+        }
+        if ((wifePosition->position_ + wifeTransform->transform_vec2_) == playerPosition->position_) {
+          wifeTransform->transform_vec2_ = ZeroVec2;
+        }
+        if (wifePosition->position_ == playerPosition->position_) {
+          playerHealth->health_ += 50;
+        }
+        for (auto& obstacle : GetEntityManager()) {
+          if (obstacle.Contains<PositionComponent>() && obstacle.Contains<ObstacleTag>()) {
+            auto obstaclePosition = obstacle.Get<PositionComponent>();
+            if ((wifePosition->position_ + wifeTransform->transform_vec2_) == obstaclePosition->position_) {
+              wifeTransform->transform_vec2_ = ZeroVec2;
             }
           }
         }

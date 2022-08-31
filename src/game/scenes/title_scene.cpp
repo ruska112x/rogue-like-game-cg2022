@@ -2,13 +2,11 @@
 
 TitleScene::TitleScene(Context* ctx, Controls* controls) : IScene(ctx), controls_(*controls), x(11), y(8) {}
 
-void TitleScene::OnCreate() {
-  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
-}
+void TitleScene::OnCreate() {}
 
 void TitleScene::OnRender() {
   terminal_clear();
-  terminal_print(x, y, "@");
+  terminal_print(x, y, ">");
   terminal_print(12, 8, "Start game");
   terminal_print(12, 9, "Settings");
   terminal_print(12, 10, "Exit");
