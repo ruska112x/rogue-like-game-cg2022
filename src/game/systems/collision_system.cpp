@@ -21,6 +21,7 @@ void CollisionSystem::OnUpdate() {
       auto entityTransform = entity.Get<TransformComponent>();
       auto entityControl = entity.Get<ControlComponent>();
       auto entityHealth = entity.Get<HealthComponent>();
+      auto entityMax = entity.Get<StepComponent>();
       auto entitySocialCredit = entity.Get<SocialCreditComponent>();
       if (entityControl->left_pressed_) {
         entityTransform->transform_vec2_ = LeftVec2;
@@ -50,6 +51,10 @@ void CollisionSystem::OnUpdate() {
             if (obstacle.Contains<SaturationComponent>()) {
               auto obstacleSaturation = obstacle.Get<SaturationComponent>();
               entityHealth->health_ += obstacleSaturation->saturation_;
+            }
+            if (obstacle.Contains<MoreStepsComponent>()) {
+              auto obstacleSteps = obstacle.Get<MoreStepsComponent>();
+              entityMax->max_steps_on_level_ += obstacleSteps->more_steps_;
             }
             if (obstacle.Contains<OpenDoorComponent>()) {
               auto odc = obstacle.Get<OpenDoorComponent>();

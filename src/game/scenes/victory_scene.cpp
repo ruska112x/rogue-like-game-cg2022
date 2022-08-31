@@ -3,7 +3,6 @@
 VictoryScene::VictoryScene(Context *ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}
 
 void VictoryScene::OnCreate() {
-  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
   terminal_set("0x5b: assets/sprites/good.png; 0x5d: assets/sprites/bad.png");
 }
 

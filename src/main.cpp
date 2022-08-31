@@ -7,7 +7,7 @@
 int main() {
   terminal_open();
   terminal_set(
-      "window: title='CCC', cellsize = 32x32, size = 33x23;"
+      "window: title='Chin-Chan-Chon-Chin', cellsize = 32x32, size = 33x23;"
       "font: assets/fonts/jbm.ttf, size=26");
   terminal_refresh();
 

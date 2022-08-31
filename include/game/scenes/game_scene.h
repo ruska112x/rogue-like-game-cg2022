@@ -16,6 +16,7 @@
 #include "../include/game/components/control_component.h"
 #include "../include/game/components/damage_component.h"
 #include "../include/game/components/health_component.h"
+#include "../include/game/components/more_steps_component.h"
 #include "../include/game/components/open_door_component.h"
 #include "../include/game/components/position_component.h"
 #include "../include/game/components/social_credit_component.h"

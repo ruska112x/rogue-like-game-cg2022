@@ -8,9 +8,7 @@ SettingsScene::SettingsScene(Context *ctx, Controls *controls)
       rand_accept('-'),
       prepare_accept('+'),
       ascii_accept('+'),
-      sprite_accept('-') {
-  terminal_set("0x23: none; 0x3e: none; 0x3c: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none");
-}
+      sprite_accept('-') {}
 
 void SettingsScene::OnCreate() {
   if (ctx_->sprite) {

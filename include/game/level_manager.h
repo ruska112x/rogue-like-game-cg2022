@@ -20,6 +20,7 @@ class LevelManager {
   std::vector<Vec2> enemy_pos_;
   std::vector<Vec2> walls_pos_;
   std::vector<Vec2> food_pos_;
+  std::vector<Vec2> bull_pos_;
 
   void GetRandomLevel() {
     player_pos_ = ZeroVec2;
@@ -78,6 +79,9 @@ class LevelManager {
     while (!food_pos_.empty()) {
       food_pos_.pop_back();
     }
+    while (!bull_pos_.empty()) {
+      food_pos_.pop_back();
+    }
     std::ifstream fin;
     fin.open(name);
     char symbol;
@@ -110,6 +114,9 @@ class LevelManager {
       }
       if (symbol == '-') {
         key_pos_ = Vec2(i, j);
+      }
+      if (symbol == '~') {
+        bull_pos_.emplace_back(Vec2(i, j));
       }
       i++;
       if (symbol == '\n') {

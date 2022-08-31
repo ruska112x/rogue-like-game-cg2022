@@ -1,4 +1,4 @@
-#include "../include/game/systems/cheat_system.h"
+#include "game/systems/cheat_system.h"
 
 CheatSystem::CheatSystem(EntityManager *em, SystemManager *sm, const Controls &controls, Context *ctx)
     : ISystem(em, sm), controls_(controls), ctx_(*ctx) {}
