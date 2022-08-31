@@ -1,6 +1,6 @@
 # Coding Garden Summer 2022
 
-## RogueLike Game By Ruslan Karabalin
+## RogueLike(Soulse-like) Game By Ruslan Karabalin
 
 | Symbol | Description | Sprite                                   |
 |--------|-------------|------------------------------------------|
