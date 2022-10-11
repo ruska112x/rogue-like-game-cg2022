@@ -18,7 +18,7 @@ void GameScene::OnCreate() {
     levelManager_.GetLevel(level_file_);
     ctx_->p_health_ = 1000;
     ctx_->p_steps_ = 0;
-    ctx_->p_max_steps_ = 384;
+    ctx_->p_max_steps_ = 448;
     ctx_->p_damage_ = 100;
     ctx_->p_credits_ = 100;
     ctx_->restart = false;
