@@ -100,6 +100,8 @@ void RandomScene::OnRender() {
 }
 
 void RandomScene::OnExit() {
+  terminal_set(
+      "0x23: none; 0x3e: none; 0x3c: none; 0x7e: none; 0x25: none; 0x45: none; 0x40: none; 0x2d: none; 0x26: none;");
   engine.GetEntityManager()->DeleteAll();
   engine.GetSystemManager()->DeleteAll();
 }
