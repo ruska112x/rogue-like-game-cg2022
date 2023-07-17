@@ -1,4 +1,4 @@
-#include "../include/game/scenes/settings_scene.h"
+#include "../include/game/scenes/SettingsScene.h"
 
 SettingsScene::SettingsScene(Context *ctx, Controls *controls)
     : IScene(ctx),

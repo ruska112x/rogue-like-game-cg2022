@@ -3,7 +3,7 @@
 
 #include <BearLibTerminal.h>
 
-#include "../include/game/controls.h"
+#include "../include/game/Controls.h"
 #include "../include/lib/scenes/i_scene.h"
 
 class TitleScene : public IScene {

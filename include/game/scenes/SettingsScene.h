@@ -3,8 +3,8 @@
 
 #include <BearLibTerminal.h>
 
-#include "../include/game/controls.h"
-#include "../include/game/systems/cheat_system.h"
+#include "../include/game/Controls.h"
+#include "../include/game/systems/CheatSystem.h"
 #include "../include/lib/ecs/engine.h"
 #include "../include/lib/scenes/i_scene.h"
 

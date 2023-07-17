@@ -6,7 +6,7 @@
 #include "../include/lib/ecs/system_manager.h"
 #include "../include/lib/scenes/context.h"
 // game
-#include "../include/game/controls.h"
+#include "../include/game/Controls.h"
 
 class CheatSystem : public ISystem {
  public:

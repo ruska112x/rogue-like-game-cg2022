@@ -1,4 +1,4 @@
-#include "../include/game/systems/render_system.h"
+#include "../include/game/systems/RenderSystem.h"
 
 RenderSystem::RenderSystem(EntityManager* const em, SystemManager* const sm, Context* ctx)
     : ISystem(em, sm), ctx_(*ctx) {}

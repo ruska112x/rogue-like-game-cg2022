@@ -1,4 +1,4 @@
-#include "../include/game/scenes/random_scene.h"
+#include "../include/game/scenes/RandomScene.h"
 
 #include <string>
 #include <utility>

@@ -1,4 +1,4 @@
-#include "../include/game/systems/game_over_system.h"
+#include "../include/game/systems/GameOverSystem.h"
 
 GameOverSystem::GameOverSystem(EntityManager *em, SystemManager *sm, Context *ctx, int player_id)
     : ISystem(em, sm), em_(*em), ctx_(*ctx), player_id_(player_id) {}

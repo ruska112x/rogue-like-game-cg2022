@@ -1,7 +1,5 @@
 #include "../include/game/main.h"
 
-#include <string>
-
 // TODO: don't fix a bugs
 
 int main() {

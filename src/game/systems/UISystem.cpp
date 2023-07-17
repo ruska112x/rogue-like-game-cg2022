@@ -1,4 +1,4 @@
-#include "../include/game/systems/ui_system.h"
+#include "../include/game/systems/UISystem.h"
 
 UISystem::UISystem(EntityManager *em, SystemManager *sm, int player_id)
     : ISystem(em, sm), em_(*em), player_id_(player_id) {}

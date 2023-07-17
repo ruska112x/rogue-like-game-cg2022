@@ -9,7 +9,7 @@
 #include "../include/game/components/PositionComponent.h"
 #include "../include/game/components/StepComponent.h"
 #include "../include/game/components/TransformComponent.h"
-#include "../include/game/tags/enemy_tag.h"
+#include "../include/game/tags/EnemyTag.h"
 
 class TransformSystem : public ISystem {
  public:

@@ -5,9 +5,9 @@
 #include "../include/lib/ecs/system.h"
 #include "../include/lib/ecs/system_manager.h"
 // game
+#include "../include/game/Controls.h"
 #include "../include/game/components/ControlComponent.h"
 #include "../include/game/components/TransformComponent.h"
-#include "../include/game/controls.h"
 class ControlSystem : public ISystem {
  public:
   const Controls& controls_;

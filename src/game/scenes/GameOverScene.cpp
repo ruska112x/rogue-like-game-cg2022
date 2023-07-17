@@ -1,4 +1,4 @@
-#include "../include/game/scenes/game_over_scene.h"
+#include "../include/game/scenes/GameOverScene.h"
 
 GameOverScene::GameOverScene(Context *ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}
 

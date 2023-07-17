@@ -1,4 +1,4 @@
-#include "../include/game/scenes/game_scene.h"
+#include "../include/game/scenes/GameScene.h"
 
 #include <string>
 

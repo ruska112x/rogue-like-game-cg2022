@@ -10,7 +10,7 @@
 // math
 #include "../include/lib/math/vec2.h"
 // game
-#include "../include/game/controls.h"
+#include "../include/game/Controls.h"
 // components
 #include "../include/game/components/ColorComponent.h"
 #include "../include/game/components/ControlComponent.h"
@@ -20,28 +20,28 @@
 #include "../include/game/components/OpenDoorComponent.h"
 #include "../include/game/components/PositionComponent.h"
 #include "../include/game/components/SocialCreditComponent.h"
-#include "../include/game/components/texture_component.h"
-#include "../include/game/components/transform_component.h"
+#include "../include/game/components/TextureComponent.h"
+#include "../include/game/components/TransformComponent.h"
 // tags
-#include "../include/game/tags/enemy_tag.h"
-#include "../include/game/tags/obstacle_tag.h"
-#include "../include/game/tags/prev_door_tag.h"
-#include "../include/game/tags/takeable_tag.h"
-#include "../include/game/tags/wife_tag.h"
+#include "../include/game/tags/EnemyTag.h"
+#include "../include/game/tags/ObstacleTag.h"
+#include "../include/game/tags/PrevDoorTag.h"
+#include "../include/game/tags/TakeableTag.h"
+#include "../include/game/tags/WifeTag.h"
 // systems
-#include "../include/game/systems/cheat_system.h"
-#include "../include/game/systems/collision_system.h"
-#include "../include/game/systems/control_system.h"
-#include "../include/game/systems/death_system.h"
-#include "../include/game/systems/door_system.h"
-#include "../include/game/systems/game_over_system.h"
-#include "../include/game/systems/pursuer_system.h"
-#include "../include/game/systems/render_system.h"
-#include "../include/game/systems/transform_system.h"
-#include "../include/game/systems/ui_system.h"
+#include "../include/game/systems/CheatSystem.h"
+#include "../include/game/systems/CollisionSystem.h"
+#include "../include/game/systems/ControlSystem.h"
+#include "../include/game/systems/DeathSystem.h"
+#include "../include/game/systems/DoorSystem.h"
+#include "../include/game/systems/GameOverSystem.h"
+#include "../include/game/systems/PursuerSystem.h"
+#include "../include/game/systems/RenderSystem.h"
+#include "../include/game/systems/TransformSystem.h"
+#include "../include/game/systems/UISystem.h"
 
 // level managers
-#include "../include/game/level_manager.h"
+#include "../include/game/LevelManager.h"
 
 class GameScene : public IScene {
   const Engine engine{};

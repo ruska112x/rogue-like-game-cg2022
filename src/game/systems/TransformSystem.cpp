@@ -1,4 +1,4 @@
-#include "../include/game/systems/transform_system.h"
+#include "../include/game/systems/TransformSystem.h"
 
 TransformSystem::TransformSystem(EntityManager* const em, SystemManager* const sm) : ISystem(em, sm) {}
 

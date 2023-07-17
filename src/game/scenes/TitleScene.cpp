@@ -1,4 +1,4 @@
-#include "../include/game/scenes/title_scene.h"
+#include "../include/game/scenes/TitleScene.h"
 
 TitleScene::TitleScene(Context* ctx, Controls* controls) : IScene(ctx), controls_(*controls), x(11), y(8) {}
 

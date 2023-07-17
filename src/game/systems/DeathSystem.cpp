@@ -1,4 +1,4 @@
-#include "../include/game/systems/death_system.h"
+#include "../include/game/systems/DeathSystem.h"
 
 DeathSystem::DeathSystem(EntityManager* const em, SystemManager* const sm) : ISystem(em, sm) {}
 

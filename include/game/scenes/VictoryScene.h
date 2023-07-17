@@ -1,8 +1,8 @@
 #ifndef INCLUDE_GAME_SCENES_VICTORY_SCENE_H_
 #define INCLUDE_GAME_SCENES_VICTORY_SCENE_H_
 
+#include "game/Controls.h"
 #include "game/components/SocialCreditComponent.h"
-#include "game/controls.h"
 #include "lib/scenes/i_scene.h"
 
 class VictoryScene : public IScene {

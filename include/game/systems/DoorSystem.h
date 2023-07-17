@@ -1,7 +1,7 @@
 #ifndef INCLUDE_GAME_SYSTEMS_DOOR_SYSTEM_H_
 #define INCLUDE_GAME_SYSTEMS_DOOR_SYSTEM_H_
 
-#include "../include/game/level_manager.h"
+#include "../include/game/LevelManager.h"
 #include "../include/lib/ecs/entity_manager.h"
 #include "../include/lib/ecs/system.h"
 // game

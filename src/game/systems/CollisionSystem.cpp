@@ -1,4 +1,4 @@
-#include "../include/game/systems/collision_system.h"
+#include "../include/game/systems/CollisionSystem.h"
 
 #include <string>
 #include <utility>

@@ -1,4 +1,4 @@
-#include "../include/game/systems/control_system.h"
+#include "../include/game/systems/ControlSystem.h"
 
 ControlSystem::ControlSystem(EntityManager* const em, SystemManager* const sm, const Controls& controls)
     : ISystem(em, sm), controls_(controls) {}

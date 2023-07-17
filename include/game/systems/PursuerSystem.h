@@ -7,6 +7,7 @@
 #include "../include/lib/ecs/system_manager.h"
 #include "../include/lib/scenes/context.h"
 // game
+#include "../include/game/LevelManager.h"
 #include "../include/game/components/ControlComponent.h"
 #include "../include/game/components/DamageComponent.h"
 #include "../include/game/components/HealthComponent.h"
@@ -16,11 +17,10 @@
 #include "../include/game/components/StepComponent.h"
 #include "../include/game/components/TextureComponent.h"
 #include "../include/game/components/TransformComponent.h"
-#include "../include/game/level_manager.h"
-#include "../include/game/tags/enemy_tag.h"
-#include "../include/game/tags/obstacle_tag.h"
-#include "../include/game/tags/takeable_tag.h"
-#include "../include/game/tags/wife_tag.h"
+#include "../include/game/tags/EnemyTag.h"
+#include "../include/game/tags/ObstacleTag.h"
+#include "../include/game/tags/TakeableTag.h"
+#include "../include/game/tags/WifeTag.h"
 
 class PursuerSystem : public ISystem {
  public:

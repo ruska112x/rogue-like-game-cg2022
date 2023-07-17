@@ -1,4 +1,4 @@
-#include "game/VIctoryScene/victory_scene.h"
+#include "game/scenes/VictoryScene.h"
 
 VictoryScene::VictoryScene(Context *ctx, const Controls &controls) : IScene(ctx), controls_(controls) {}
 

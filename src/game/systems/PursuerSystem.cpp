@@ -1,4 +1,4 @@
-#include "../include/game/systems/pursuer_system.h"
+#include "../include/game/systems/PursuerSystem.h"
 
 PursuerSystem::PursuerSystem(EntityManager* const em, SystemManager* const sm, Context* ctx, LevelManager* levelManager,
                              int player_id)
