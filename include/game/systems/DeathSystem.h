@@ -7,10 +7,10 @@
 #include "../include/lib/ecs/system_manager.h"
 #include "../include/lib/scenes/context.h"
 // game
-#include "../include/game/components/health_component.h"
-#include "../include/game/components/position_component.h"
-#include "../include/game/components/social_credit_component.h"
-#include "../include/game/components/texture_component.h"
+#include "../include/game/components/HealthComponent.h"
+#include "../include/game/components/PositionComponent.h"
+#include "../include/game/components/SocialCreditComponent.h"
+#include "../include/game/components/TextureComponent.h"
 
 class DeathSystem : public ISystem {
  public:

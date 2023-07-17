@@ -5,7 +5,7 @@
 #include "../include/lib/ecs/entity_manager.h"
 #include "../include/lib/ecs/system.h"
 // game
-#include "../include/game/components/open_door_component.h"
+#include "../include/game/components/OpenDoorComponent.h"
 class DoorSystem : public ISystem {
  public:
   LevelManager& levelManager_;

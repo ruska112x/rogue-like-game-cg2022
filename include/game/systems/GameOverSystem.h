@@ -7,13 +7,13 @@
 #include "../include/lib/ecs/system_manager.h"
 #include "../include/lib/scenes/context.h"
 // components
-#include "../include/game/components/color_component.h"
-#include "../include/game/components/control_component.h"
-#include "../include/game/components/health_component.h"
-#include "../include/game/components/position_component.h"
-#include "../include/game/components/step_component.h"
-#include "../include/game/components/texture_component.h"
-#include "../include/game/components/transform_component.h"
+#include "../include/game/components/ColorComponent.h"
+#include "../include/game/components/ControlComponent.h"
+#include "../include/game/components/HealthComponent.h"
+#include "../include/game/components/PositionComponent.h"
+#include "../include/game/components/StepComponent.h"
+#include "../include/game/components/TextureComponent.h"
+#include "../include/game/components/TransformComponent.h"
 
 class GameOverSystem : public ISystem {
  public:

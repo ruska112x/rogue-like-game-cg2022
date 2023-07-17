@@ -6,9 +6,9 @@
 #include "../include/lib/ecs/system_manager.h"
 #include "../include/lib/scenes/context.h"
 // game
-#include "../include/game/components/color_component.h"
-#include "../include/game/components/position_component.h"
-#include "../include/game/components/texture_component.h"
+#include "../include/game/components/ColorComponent.h"
+#include "../include/game/components/PositionComponent.h"
+#include "../include/game/components/TextureComponent.h"
 
 class RenderSystem : public ISystem {
  public:

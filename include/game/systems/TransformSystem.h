@@ -5,10 +5,10 @@
 #include "../include/lib/ecs/system.h"
 #include "../include/lib/ecs/system_manager.h"
 // game
-#include "../include/game/components/control_component.h"
-#include "../include/game/components/position_component.h"
-#include "../include/game/components/step_component.h"
-#include "../include/game/components/transform_component.h"
+#include "../include/game/components/ControlComponent.h"
+#include "../include/game/components/PositionComponent.h"
+#include "../include/game/components/StepComponent.h"
+#include "../include/game/components/TransformComponent.h"
 #include "../include/game/tags/enemy_tag.h"
 
 class TransformSystem : public ISystem {

@@ -12,11 +12,11 @@
 // game
 #include "../include/game/controls.h"
 // components
-#include "../include/game/components/color_component.h"
-#include "../include/game/components/control_component.h"
-#include "../include/game/components/damage_component.h"
-#include "../include/game/components/health_component.h"
-#include "../include/game/components/position_component.h"
+#include "../include/game/components/ColorComponent.h"
+#include "../include/game/components/ControlComponent.h"
+#include "../include/game/components/DamageComponent.h"
+#include "../include/game/components/HealthComponent.h"
+#include "../include/game/components/PositionComponent.h"
 #include "../include/game/components/texture_component.h"
 #include "../include/game/components/transform_component.h"
 // tags
