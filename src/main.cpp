@@ -1,7 +1,5 @@
 #include "../include/game/main.h"
 
-// TODO: don't fix a bugs
-
 int main() {
   terminal_open();
   terminal_set(
